@@ -1,0 +1,21 @@
+.appForm{
+    max-width: 1200px;
+    width: 90%;
+    margin: auto;
+    padding: 0 20px 20px 20px;
+}
+  
+.formLine{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.formBtns{
+    width: 20%;
+    min-width: 250px;
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0 0 0;
+}

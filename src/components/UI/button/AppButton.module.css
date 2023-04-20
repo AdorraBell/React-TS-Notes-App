@@ -1,0 +1,19 @@
+.btnDefault{
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.orangeButton{
+    border: 2px solid #fec34d;
+    color: #fec34d;
+    background-color: #3a362e;
+}
+
+.greyOutlineButton{
+    border: 2px solid #b4b0c2;
+    color: #b4b0c2;
+    background-color: transparent;
+}

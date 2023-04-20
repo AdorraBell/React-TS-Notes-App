@@ -1,0 +1,18 @@
+.appTextarea{
+    width: 100%;
+    background-color: #d1d1d1;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    box-sizing: border-box;
+    min-height: 15em;
+}
+
+.appTextarea:focus{
+    outline: 0;
+}
+
+.appTextareaTitle{
+    text-transform: uppercase;
+    margin: 0 0 15px 0;
+}

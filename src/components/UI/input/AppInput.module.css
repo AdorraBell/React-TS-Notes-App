@@ -1,0 +1,22 @@
+.appInput{
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #d1d1d1;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    margin: 0 0 10px 0;
+}
+
+.appInput:focus{
+    outline: 0;
+}
+
+.appInputWrapper{
+    width: 100%;
+}
+
+.appInputTitle{
+    text-transform: uppercase;
+    margin: 0 0 15px 0;
+}
