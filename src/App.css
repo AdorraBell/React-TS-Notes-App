@@ -10,4 +10,13 @@
   padding: 20px;
 }
 
+.alert-message{
+  text-align: center;
+  text-transform: uppercase;
+  margin: 25vh auto;
+  font-size: 18px;
+  color: #fec34d;
+  font-weight: 400;
+}
+
 

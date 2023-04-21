@@ -1,0 +1,84 @@
+.noteBlock{
+    width: 21%;
+    min-width: 250px;
+    border-radius: 5px;
+    padding: 15px 16px 46px;
+    margin: 5px;
+    background-color: #3e3b4c;
+    color: #b4b0c2;
+    max-height: 500px;
+    overflow: hidden;
+    position: relative;
+}
+
+.noteBlock:hover{
+    background-color: #514e60;
+}
+
+.deleteCircleWrapper{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.deleteCircle{
+    width: 30px;
+    height: 30px;
+    background-color: #868095;
+    border-radius: 15px;
+    position: relative;
+}
+
+.deleteCircle__line{
+    display: inline-block;
+    width: 15px;
+    height: 2px;
+    background-color: #44404e;
+    position: absolute;
+    top: 14px;
+    left: 7.5px;
+}
+
+.deleteCircle__line:first-child{
+    transform: rotate(45deg); 
+}
+
+.deleteCircle__line:last-child{
+    transform: rotate(135deg);
+}
+
+.noteBlock__link{
+    text-decoration: none;
+    color: #b4b0c2;
+}
+
+.noteBlock__link:hover{
+    color: #b4b0c2;
+}
+
+.noteBlock__title{
+    color: #d5d3da;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.noteBlock__tags{
+    font-weight: bold;
+    margin: 20px 0 10px;
+}
+
+.noteBlock__body{
+    max-height: 220px;
+    overflow: hidden
+}
+
+.noteBlock__readMore{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    text-transform: uppercase;
+    color: #efb43d;
+    font-weight: 500;
+}

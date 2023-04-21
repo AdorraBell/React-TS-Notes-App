@@ -8,12 +8,16 @@ interface AppTextareaProps{
 }
 
 const AppTextarea:FC<AppTextareaProps> = ({changeTextarea, maxWidth, title}) => {
+
     return ( 
-        <div className = {styles.appTextareaWrapper} style = {{width: maxWidth}}>
+        <div className = {styles.appTextareaWrapper} style = {{maxWidth: maxWidth}}>
             {title &&
                 <h3 className = {styles.appTextareaTitle}>{title}</h3>
             }
-            <textarea onChange = {(e) => changeTextarea(e.target.value)} className = {styles.appTextarea}></textarea>
+            <textarea 
+                onChange = {(e) => changeTextarea(e.target.value)} 
+                className = {styles.appTextarea}
+                ></textarea>
         </div>
     );
 }

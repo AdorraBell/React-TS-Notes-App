@@ -1,3 +1,8 @@
+.appTextareaWrapper{
+    width: 100%;
+    margin: 10px 0;
+}
+
 .appTextarea{
     width: 100%;
     background-color: #d1d1d1;

@@ -15,8 +15,7 @@ const AppRouter = () => {
             <Route path = "/:id/detail" element = {<DetailPage></DetailPage>}></Route>
             <Route path = "/:id/edit" element = {<EditNotePage></EditNotePage>}></Route>
             <Route path = "/folders" element = {<FoldersPage></FoldersPage>}></Route>
-            <Route path = "/404" element = {<ErrorPage ></ErrorPage>}></Route>
-            <Route path = "/*" element = {<Navigate to = "/404"></Navigate>}></Route>
+            <Route path = "/*" element = {<ErrorPage ></ErrorPage>}></Route>
             </Routes>
         </BrowserRouter> 
     );

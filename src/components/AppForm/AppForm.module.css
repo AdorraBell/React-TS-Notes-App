@@ -10,6 +10,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin: 10px 0;
 }
 
 .formBtns{
@@ -18,4 +19,10 @@
     display: flex;
     justify-content: space-between;
     margin: 40px 0 0 0;
+}
+
+@media(max-width: 500px){
+    .formBtns{
+        width: auto;
+    }
 }

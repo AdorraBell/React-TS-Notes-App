@@ -1,0 +1,30 @@
+.noteDetail{
+    max-width: 1200px;
+    width: 90%;
+    margin: auto;
+    padding: 0 20px 20px 20px;
+}
+
+.noteDetail__title{
+    margin: 2rem;
+}
+
+.noteDetail__tags{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.noteDetail__tag{
+    margin: 15px 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.noteDetail__btns{
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    margin: 30px 0;
+    justify-content: space-between;
+}
+
