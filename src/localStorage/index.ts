@@ -49,11 +49,9 @@ export const checkTagsExistence = () => {
         
         if(noteTags !== undefined){
             for(let i = 0; i < noteTags.length; i ++){
-                //теги для конкретной note
                 let calc = 0;
                 tagsList.forEach((tag: TagType)  => {
                     if(tag.label === noteTags![i].label) calc ++;
-                    
                 });
                 if(calc > 0) newTagsList.push(noteTags[i]);
             }
@@ -61,5 +59,4 @@ export const checkTagsExistence = () => {
     });
 
     localStorage.setItem('tagsList', JSON.stringify(newTagsList));
-    console.log(newTagsList);
 }

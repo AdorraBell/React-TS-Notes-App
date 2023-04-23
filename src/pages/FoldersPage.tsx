@@ -5,15 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 const FoldersPage:FC = () => {
 
-    const addFolder = () => {
-       
-    }
-
     return ( 
         <div>
             <h1 className = "h1-title">Folders Page</h1>
             <AppNavbar></AppNavbar>
-            <PlusButton onClick = {addFolder}></PlusButton>
+            <PlusButton></PlusButton>
             
         </div>
      );

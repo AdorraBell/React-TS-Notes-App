@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import styles from "./NoteBlock.module.css";
+import { textFormatting } from "../../../helpers/textFormatting";
+import { createHTML } from "../../../helpers/createHTML";
 
 interface TagsType{
     label: string,
@@ -16,6 +18,9 @@ interface NoteType{
 }
 
 const NoteBlock:FC<NoteType> = ({id, title, body, tags, deletePoint}) => {
+
+    let formattedBody = textFormatting(body);
+
     return ( 
         <div className = {styles.noteBlock}>
             <div className = {styles.deleteCircleWrapper}  onClick = {() => deletePoint(id)}>
@@ -34,7 +39,9 @@ const NoteBlock:FC<NoteType> = ({id, title, body, tags, deletePoint}) => {
                     </div>
                 }
                 
-                <div className = {styles.noteBlock__body}>{body}</div>
+                <div className = {styles.noteBlock__body}>
+                    <div dangerouslySetInnerHTML = {createHTML(formattedBody)} />
+                </div>
                 <div className = {styles.noteBlock__readMore}>Read more</div>
             </Link>
         </div>

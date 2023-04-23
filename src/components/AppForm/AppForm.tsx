@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import { FC } from "react";
 import InputWithDropdown from "../InputWithDropdown/InputWithDropdown";
 import {useState} from "react";
-import {TagType} from "../../types/types";
-import {NoteType} from "../../types/types";
+import {TagType, NoteType} from "../../types/types";
 
 interface AppFormProps{
     selectedTags?: Array<TagType>,
@@ -51,7 +50,6 @@ const AppForm:FC<AppFormProps> = ({allTags, selectedTags, addTag, deleteTag, del
                     title = {'Tags'}
                     selectedTags = {selectedTags}
                     deleteAllSelectedTags = {deleteAllSelectedTags}/>
-
             </div>
             <div className = {styles.formLine}>
                 <AppTextarea 

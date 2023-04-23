@@ -42,7 +42,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
     const addPoint = (createTag: any) => {
         if(createTag !== ''){ 
             let tag = {label: createTag, id: createTag};
-            if(dublCheck(tag) !== true){
+            if((dublCheck(tag) !== true) && (tagAlreadyExist !== true)){
                 addTag(tag);
                 setCreateTag('');
             }else{
@@ -67,7 +67,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
     }, [showError])
 
     useEffect(() => {
-        let tag = {label: createTag, id: createTag};
+        let tag = {label: createTag.trim(), id: createTag.trim()};
         if(dublCheck(tag)){
             setDefaultDropdownPointText('Already exist');
             setTagAlreadyExist(true);
@@ -137,7 +137,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
                             background: tagAlreadyExist ? '#d4bebc' : '#cfc6b2'
                         }}
                         >
-                        {defaultDropdownPointText} "<span className = {styles.createTag}>{createTag}</span>"
+                        {defaultDropdownPointText} "<span className = {styles.createTag}>{createTag.trim()}</span>"
                     </div>
                 </div>    
             }

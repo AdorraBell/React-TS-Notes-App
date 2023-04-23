@@ -1,11 +1,7 @@
 import { FC } from "react";
 import styles from "./PlusButton.module.css";
 
-interface PlusButtonProps{
-    onClick?: () => void
-}
-
-const PlusButton:FC<PlusButtonProps> = ({onClick}) => {
+const PlusButton:FC = ({}) => {
     return ( 
         <div className = {styles.addNote}>+</div>
      );

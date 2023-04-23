@@ -3,20 +3,28 @@ import { NoteType } from "../../types/types";
 import { Link } from "react-router-dom";
 import styles from "./NoteDetail.module.css";
 import AppButton from "../UI/button/AppButton";
+import { textFormatting } from "../../helpers/textFormatting";
+import { createHTML } from "../../helpers/createHTML";
 
 
 
 const NoteDetail:FC<NoteType> = ({body, title, tags, id}) => {
+
+    let formattedBody = textFormatting(body);
+
     return ( 
         <div className = {styles.noteDetail}>
             <h1 className = "h1-title">{title}</h1>
             <div className = {styles.noteDetail__tags}>
                {tags &&
                 (tags).map(tag =>
-                    <div className = {styles.noteDetail__tag} key = {tag.id}>#{tag.label}</div>
+                    <div className = {styles.noteDetail__tag} 
+                        key = {tag.id}>#{tag.label}</div>
                 )}
             </div>
-            <div className = {styles.noteDetail__body}>{body}</div>
+            <div className = {styles.noteDetail__body}>
+                <div dangerouslySetInnerHTML = {createHTML(formattedBody)} />
+            </div>
             <div className = {styles.noteDetail__btns}>
                 <Link to={`/${id}/edit`}>
                     <AppButton 

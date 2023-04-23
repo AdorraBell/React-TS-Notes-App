@@ -20,7 +20,10 @@ const NotesPage:FC = () => {
             { notesList.length < 1 &&
                 <p className = "alert-message">You don't have any notes yet</p>
             }
-            <NotesList notesList={notesList} deletePoint = {(id) => deletePoint(id)}></NotesList>
+            <NotesList 
+                notesList={notesList} 
+                deletePoint = {(id) => deletePoint(id)}
+                ></NotesList>
             <Link to = "/add">
                 <PlusButton></PlusButton>
             </Link>
