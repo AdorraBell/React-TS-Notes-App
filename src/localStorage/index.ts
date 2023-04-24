@@ -1,21 +1,22 @@
 import { NoteType, TagType } from "../types/types";
 
 let notesList: Array<NoteType> =  JSON.parse(localStorage.getItem('notesList') || '[]');
-let newNotesList = null;
 let tagsList = JSON.parse(localStorage.getItem('tagsList') || '[]');
 
 export const addNoteToNotesList = (data: NoteType) : void => {
-    notesList = JSON.parse(localStorage.getItem('notesList') || '[]');
+    
+    updateVariables();
     notesList = [...notesList, data];
-    localStorage.setItem('notesList', JSON.stringify(notesList));
+    
+    setValInLocalStorage('notesList', notesList);
+    
     if(data.tags !== undefined){
         addTagsToTagsList(data.tags)
     }  
 }
 
 export const addTagsToTagsList = (data: Array<TagType>) : void => {
-    tagsList = JSON.parse(localStorage.getItem('tagsList') || '[]');
-
+    
     tagsList = [...tagsList, ...data.filter(tag => {
         let calc = 0;
         for(let i = 0; i < tagsList.length; i ++){
@@ -24,39 +25,51 @@ export const addTagsToTagsList = (data: Array<TagType>) : void => {
         if(calc === 0) return tag;
     })];
 
-    localStorage.setItem('tagsList', JSON.stringify(tagsList));
+    setValInLocalStorage('tagsList', tagsList);
 }
 
 export const deleteNote = (id: number) : Array<NoteType> => {
-    notesList = JSON.parse(localStorage.getItem('notesList') || '[]');
+    
+    updateVariables();
     notesList = notesList.filter(note => {
-            if (note.id !== id) return note;
+        if (note.id !== id) return note;
     }) 
-    localStorage.setItem('notesList', JSON.stringify(notesList));
 
-    checkTagsExistence();
+    setValInLocalStorage('notesList', notesList);
+    deleteIrrelevantTags();
 
     return notesList;
 }
 
-export const checkTagsExistence = () => {
+export const deleteIrrelevantTags = () => {
+
+    let allTags:Array<TagType> = [];
+
+    notesList.forEach((note: any) => {
+        allTags.push(...note.tags);
+    })
+
+    let stringTagsArr:Array<string> = [];
+
+    allTags.forEach((tag: TagType) => {
+        stringTagsArr.push(tag.label);
+    })
+
+    let unicTags = new Set(stringTagsArr);
+    tagsList = [];
+
+    unicTags.forEach((tag: string) => {
+        tagsList.push({label: tag, id: tag});
+    })
+
+    setValInLocalStorage('tagsList', tagsList);
+}
+
+const setValInLocalStorage = (listname: string, data: object) => {
+    localStorage.setItem(listname, JSON.stringify(data));
+}
+
+const updateVariables = () => {
     notesList = JSON.parse(localStorage.getItem('notesList') || '[]');
     tagsList = JSON.parse(localStorage.getItem('tagsList') || '[]');
-    let newTagsList:any = [];
-    
-    notesList.forEach(note => {
-        let noteTags = note.tags;
-        
-        if(noteTags !== undefined){
-            for(let i = 0; i < noteTags.length; i ++){
-                let calc = 0;
-                tagsList.forEach((tag: TagType)  => {
-                    if(tag.label === noteTags![i].label) calc ++;
-                });
-                if(calc > 0) newTagsList.push(noteTags[i]);
-            }
-        }  
-    });
-
-    localStorage.setItem('tagsList', JSON.stringify(newTagsList));
 }
