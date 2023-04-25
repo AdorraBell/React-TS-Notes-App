@@ -14,14 +14,23 @@ interface AppFormProps{
     addTag: (data: TagType) => void,
     deleteTag: (index: number) => void,
     deleteAllSelectedTags: () => void,
-    returnNote: (data: NoteType) => void
+    returnNote: (data: NoteType) => void,
+    defaultTitle?: string,
+    defaultBody?: string,
+    defaultId?: number
 }
 
-const AppForm:FC<AppFormProps> = ({allTags, selectedTags, addTag, deleteTag, deleteAllSelectedTags, returnNote}) => {
-    
+const AppForm:FC<AppFormProps> = ({allTags, selectedTags, addTag, deleteTag, deleteAllSelectedTags, returnNote, defaultTitle, defaultBody, defaultId}) => {
+    let [titleVal, setTitleVal] = useState(defaultTitle || '');
+    let [textareaVal, setTextareaVal] = useState(defaultBody || '');
+
     const saveNote = (e: any) => {
         e.preventDefault();
-        let note = {body: textareaVal, id: Date.now(), tags: selectedTags, title: titleVal};
+        let note = {
+            body: textareaVal, 
+            id: defaultId || Date.now(), 
+            tags: selectedTags, 
+            title: titleVal};
         returnNote(note);
     }
 
@@ -31,28 +40,26 @@ const AppForm:FC<AppFormProps> = ({allTags, selectedTags, addTag, deleteTag, del
 
     const changeTextarea = (val: string) => {
         setTextareaVal(val);
-    }
-
-    let [titleVal, setTitleVal] = useState('');
-    let [textareaVal, setTextareaVal] = useState('');
+    } 
 
     return ( 
         <form onSubmit = {(e) => saveNote(e)} className = {styles.appForm}>
             <div className = {styles.formLine}>
                 <AppInput 
-                    value = {''} 
+                    defaultValue = {defaultTitle} 
                     changeInputVal = {(val) => changeInputVal(val)} 
                     title = {'Title'}/>
                 <InputWithDropdown 
-                    allTags = {allTags} 
-                    addTag = {(data) => addTag(data)}
-                    deleteTag = {(index) => deleteTag(index)}
+                    allPoints = {allTags} 
+                    addedPoint = {(data) => addTag(data)}
+                    deletePoint = {(index) => deleteTag(index)}
                     title = {'Tags'}
-                    selectedTags = {selectedTags}
-                    deleteAllSelectedTags = {deleteAllSelectedTags}/>
+                    selectedPoints = {selectedTags}
+                    deleteAllSelectedPoints = {deleteAllSelectedTags}/>
             </div>
             <div className = {styles.formLine}>
                 <AppTextarea 
+                    defaultValue = {defaultBody}
                     changeTextarea = {(val) => changeTextarea(val)}  
                     title = {'Note Body'}/>
             </div>

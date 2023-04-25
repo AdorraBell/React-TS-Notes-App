@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 const AddNotePage:FC = () => {
 
-    //let [selectedTags, setSelectedTags] = useState([{label: 'EU', id: 'EU'}, {label: 'USA', id: 'USA'}, {label: 'KGZ', id: 'KGZ'}]);
     let [selectedTags, setSelectedTags] = useState([{label: 'example', id: 'example'}]);
     let allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');
     

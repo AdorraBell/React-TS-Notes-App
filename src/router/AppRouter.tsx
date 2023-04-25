@@ -5,6 +5,7 @@ import DetailPage from '../pages/DetailPage';
 import EditNotePage from '../pages/EditNotePage';
 import FoldersPage from '../pages/FoldersPage';
 import ErrorPage from '../pages/ErrorPage';
+import AddFolderPage from '../pages/AddFolderPage';
 
 const AppRouter = () => {
     return ( 
@@ -15,6 +16,7 @@ const AppRouter = () => {
             <Route path = "/:id/detail" element = {<DetailPage></DetailPage>}></Route>
             <Route path = "/:id/edit" element = {<EditNotePage></EditNotePage>}></Route>
             <Route path = "/folders" element = {<FoldersPage></FoldersPage>}></Route>
+            <Route path = "/add-folder" element = {<AddFolderPage></AddFolderPage>}></Route>
             <Route path = "/*" element = {<ErrorPage ></ErrorPage>}></Route>
             </Routes>
         </BrowserRouter> 

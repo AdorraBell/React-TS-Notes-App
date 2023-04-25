@@ -7,23 +7,23 @@ import { TagType } from "../../types/types";
 
 
 interface InputWithDropdownProps {
-    allTags: Array<TagType>,
-    selectedTags?: Array<TagType>,
-    addTag: (data: TagType) => void,
+    allPoints: Array<TagType>,
+    selectedPoints?: Array<TagType>,
+    addedPoint: (data: TagType) => void,
     title?: string,
-    deleteTag: (index: number) => void,
-    deleteAllSelectedTags: () => void
+    deletePoint: (index: number) => void,
+    deleteAllSelectedPoints: () => void
 }
 
-const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, addTag, title, deleteTag, deleteAllSelectedTags}) => {
+const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints, addedPoint, title, deletePoint, deleteAllSelectedPoints}) => {
 
     let [createTag, setCreateTag] = useState('');
     let [showDropdown, setShowDropdown] = useState(false);
     let [defaultDropdownPointText, setDefaultDropdownPointText] = useState('Create');
-    let [tagAlreadyExist, setTagAlreadyExist] = useState(false);
+    let [pointAlreadySelected, setPointAlreadySelected] = useState(false);
     let [showError, setShowError] = useState(false);
 
-    const onKeyDown = (e: any) => {
+    const onKeyDown = (e: React.KeyboardEvent) => {
         if(e.code === 'Enter'){
             e.preventDefault();
             if(createTag !== ''){
@@ -31,19 +31,19 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
             }
         }else if(e.code === 'Backspace'){
             if(createTag === ''){        
-                if(selectedTags){
-                    let index = selectedTags.length - 1;
-                    deleteTag(index);
+                if(selectedPoints){
+                    let index = selectedPoints.length - 1;
+                    deletePoint(index);
                 }   
             }
         }
     }
 
-    const addPoint = (createTag: any) => {
+    const addPoint = (createTag: string) => {
         if(createTag !== ''){ 
             let tag = {label: createTag, id: createTag};
-            if((dublCheck(tag) !== true) && (tagAlreadyExist !== true)){
-                addTag(tag);
+            if((dublCheck(tag) !== true) && (pointAlreadySelected !== true)){
+                addedPoint(tag);
                 setCreateTag('');
             }else{
                 setShowError(true);
@@ -52,12 +52,17 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
     }
     
     const dublCheck = (data: TagType) => {
-        if(selectedTags !== undefined){
-            for(let i = 0; i < selectedTags.length; i ++){
-                if (selectedTags[i].label == data.label) return true;    
+        if(selectedPoints !== undefined){
+            for(let i = 0; i < selectedPoints.length; i ++){
+                if (selectedPoints[i].label == data.label) return true;    
             }
             return false;
         } 
+    }
+
+    const setError = (text: string, showArr: boolean) => {
+        setDefaultDropdownPointText(text);
+        setPointAlreadySelected(showArr);
     }
 
     useEffect(() => {
@@ -68,14 +73,9 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
 
     useEffect(() => {
         let tag = {label: createTag.trim(), id: createTag.trim()};
-        if(dublCheck(tag)){
-            setDefaultDropdownPointText('Already exist');
-            setTagAlreadyExist(true);
-        }else{
-            setDefaultDropdownPointText('Create');
-            setTagAlreadyExist(false);
-        }
+        dublCheck(tag) ? setError('Already selected', true) : setError('Create', false);
     }, [createTag])
+
 
     return ( 
         <div className={styles.inputWthDropdown}>
@@ -88,14 +88,16 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
             
             <div className={styles.inputWthDropdown__main}>
                 <div className={styles.inputWthDropdown__tags}>
-                    {selectedTags &&
-                        selectedTags.map((tag, index) =>
+                    {selectedPoints &&
+                        selectedPoints.map((tag, index) =>
                             <div className={styles.inputWthDropdown__tag} key = {tag.id}>
                                 <span className={styles.inputWthDropdown__tagText}>
                                     {tag.label}
                                 </span>
-                                <div className={styles.inputWthDropdown__tagCross} onClick = {() => deleteTag(index)}>
-                                <CrossIcon color = {'#8f8e94'}></CrossIcon>
+                                <div 
+                                    className={styles.inputWthDropdown__tagCross} 
+                                    onClick = {() => deletePoint(index)}>
+                                        <CrossIcon color = {'#8f8e94'}></CrossIcon>
                                 </div>    
                             </div>
                         )
@@ -111,7 +113,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
                 <div className={styles.inputWthDropdown__iconsWrapper}>
                     <div 
                         className={styles.inputWthDropdown__crossIcon}
-                        onClick = {deleteAllSelectedTags}>
+                        onClick = {deleteAllSelectedPoints}>
                         <CrossIcon color = {'#8f8e94'}></CrossIcon>
                     </div>
                     <div className={styles.inputWthDropdown__line}></div>
@@ -125,8 +127,11 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
 
             {((createTag !== '' ) || (showDropdown)) &&
                 <div className={styles.inputWthDropdown__dropdown}>
-                    {allTags.map(tag =>
-                        <div className={styles.inputWthDropdown__dropdownPoint} key = {tag.id} onClick = {() => addPoint(tag.label)}>
+                    {allPoints.map(tag =>
+                        <div 
+                            className={styles.inputWthDropdown__dropdownPoint} 
+                            key = {tag.id} 
+                            onClick = {() => addPoint(tag.label)}>
                             {tag.label}
                         </div>
                     )}
@@ -134,7 +139,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allTags, selectedTags, ad
                         className={styles.inputWthDropdown__dropdownPointDefault}
                         onClick = {() => addPoint(createTag)}
                         style = {{
-                            background: tagAlreadyExist ? '#d4bebc' : '#cfc6b2'
+                            background: pointAlreadySelected ? '#d4bebc' : '#cfc6b2'
                         }}
                         >
                         {defaultDropdownPointText} "<span className = {styles.createTag}>{createTag.trim()}</span>"

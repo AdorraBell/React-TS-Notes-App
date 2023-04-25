@@ -2,14 +2,14 @@ import { FC } from "react";
 import styles from "./AppInput.module.css";
 
 interface AppInputProps{
-    value?: string,
+    defaultValue?: string,
     title?: string,
     changeInputVal: (e: string) => void,
     maxWidth?: string,
 }
 
 
-const AppInput:FC<AppInputProps> = ({value, changeInputVal, title, maxWidth}) => {
+const AppInput:FC<AppInputProps> = ({defaultValue, changeInputVal, title, maxWidth}) => {
     
 
     return ( 
@@ -18,7 +18,7 @@ const AppInput:FC<AppInputProps> = ({value, changeInputVal, title, maxWidth}) =>
                 <h3 className = {styles.appInputTitle}>{title}</h3>
             }
             <input 
-                defaultValue = {value}
+                defaultValue = {defaultValue}
                 className = {styles.appInput} 
                 onChange = {(e) => changeInputVal(e.target.value)}>
             </input>

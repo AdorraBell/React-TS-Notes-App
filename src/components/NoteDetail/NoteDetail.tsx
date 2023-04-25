@@ -26,18 +26,18 @@ const NoteDetail:FC<NoteType> = ({body, title, tags, id}) => {
                 <div dangerouslySetInnerHTML = {createHTML(formattedBody)} />
             </div>
             <div className = {styles.noteDetail__btns}>
-                <Link to={`/${id}/edit`}>
-                    <AppButton 
-                        type = {'button'} 
-                        variant = {'orangeButton'}>
-                        Edit
-                    </AppButton>
-                </Link>
                 <Link to =".." className = "grey-btn">
                     <AppButton 
                         type = {'button'} 
                         variant = {'greyOutlineButton'}>
                         Go Back
+                    </AppButton>
+                </Link>
+                <Link to={`/${id}/edit`}>
+                    <AppButton 
+                        type = {'button'} 
+                        variant = {'orangeButton'}>
+                        Edit
                     </AppButton>
                 </Link>
             </div>

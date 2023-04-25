@@ -15,6 +15,33 @@ export const addNoteToNotesList = (data: NoteType) : void => {
     }  
 }
 
+export const takeNoteById = (id: number) => {
+
+    updateVariables();
+    let selectedNote = notesList.filter(note => {
+        if(note.id === id) return note;
+    })
+
+    return selectedNote[0];
+}
+
+export const changeNote = (changedNote: NoteType) => {
+    updateVariables();
+
+    let newNotesList: Array<NoteType> = [];
+    
+    notesList.forEach(note => {
+        if(changedNote.id === note.id){
+            console.log(changedNote);
+            newNotesList.push(changedNote);
+        } else {
+            newNotesList.push(note);
+        }
+    })
+
+    setValInLocalStorage('notesList', newNotesList);
+}
+
 export const addTagsToTagsList = (data: Array<TagType>) : void => {
     
     tagsList = [...tagsList, ...data.filter(tag => {
