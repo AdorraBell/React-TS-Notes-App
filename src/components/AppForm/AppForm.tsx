@@ -51,7 +51,7 @@ const AppForm:FC<AppFormProps> = ({allTags, selectedTags, addTag, deleteTag, del
                     title = {'Title'}/>
                 <InputWithDropdown 
                     allPoints = {allTags} 
-                    addedPoint = {(data) => addTag(data)}
+                    addCurrentPoint = {(data) => addTag(data)}
                     deletePoint = {(index) => deleteTag(index)}
                     title = {'Tags'}
                     selectedPoints = {selectedTags}

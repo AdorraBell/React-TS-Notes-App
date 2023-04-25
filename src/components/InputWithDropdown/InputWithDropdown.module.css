@@ -6,7 +6,7 @@
 
 .inputWthDropdown__main{
     background: #d1d1d1;
-    height: 50px;
+    min-height: 50px;
     border-radius: 3px;
     position: relative;
     display: flex;
@@ -17,6 +17,8 @@
 .inputWthDropdown__tags{
     margin-right: 3px;
     display: flex;
+    flex-wrap: wrap;
+    padding: 4px;
 }
 
 .inputWthDropdown__tag{
@@ -25,7 +27,7 @@
     padding: 3px 5px;
     border-radius: 3px;
     color: #555050;
-    margin-left: 4px;
+    margin: 0 0 3px 4px;
 }
 
 .inputWthDropdown__tagText{
@@ -116,7 +118,7 @@
 @media(max-width: 500px){
     .inputWthDropdown__main{
         flex-wrap: wrap;
-        height: 90px;
+        height: auto;
     }
 
     .inputWthDropdown__input{

@@ -3,14 +3,14 @@ import PlusButton from "../components/UI/plusBtn/PlusButton";
 import { Link } from "react-router-dom";
 import AppNavbar from "../components/UI/navbar/AppNavbar";
 import NotesList from "../components/NotesList/NotesList";
-import { deleteNote } from "../localStorage";
+import { deletePointFromList } from "../localStorage";
 
 const NotesPage:FC = () => {
 
     let [notesList, setNotesList] = useState(JSON.parse(localStorage.getItem('notesList') || '[]'));
 
     const deletePoint = (id: number) => {
-        setNotesList(deleteNote(id));
+        setNotesList(deletePointFromList(id, 'notesList'));
     }
 
     return ( 

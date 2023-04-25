@@ -4,6 +4,7 @@
     border-radius: 5px;
     text-transform: uppercase;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .orangeButton{
@@ -15,5 +16,11 @@
 .greyOutlineButton{
     border: 2px solid #b4b0c2;
     color: #b4b0c2;
+    background-color: transparent;
+}
+
+.tealOutlineButton{
+    border: 2px solid teal;
+    color: teal;
     background-color: transparent;
 }

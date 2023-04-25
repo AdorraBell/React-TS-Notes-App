@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import AppForm from "../components/AppForm/AppForm";
 import {useState} from "react";
 import { TagType } from "../types/types";
 import {NoteType} from "../types/types";
-import { addNoteToNotesList } from "../localStorage";
+import { addPointToList } from "../localStorage";
 import { useNavigate } from "react-router-dom";
 
 
@@ -29,7 +29,7 @@ const AddNotePage:FC = () => {
     }
 
     const saveNote = (data: NoteType) => {
-        addNoteToNotesList(data);
+        addPointToList(data, 'notesList');
         return navigate('/');
     }
 

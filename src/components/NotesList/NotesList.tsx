@@ -11,8 +11,6 @@ interface NotesListProps{
 
 const NotesList:FC<NotesListProps> = ({notesList, deletePoint}) => {
 
-
-
     return (    
 
         <div className = {styles.notesList}>

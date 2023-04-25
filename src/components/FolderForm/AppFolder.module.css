@@ -4,3 +4,24 @@
     margin: auto;
     padding: 0 20px 20px 20px;
 }
+
+.formBtns{
+    width: 50%;
+    min-width: 300px;
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0 0 0;
+    flex-wrap: wrap;
+}
+
+@media(max-width: 730px){
+    .formBtns{
+        width: 100%;
+        min-width: auto;
+        justify-content: space-around;
+    }
+    
+    .folderForm{
+        padding: 0;
+    }
+}

@@ -2,16 +2,32 @@ import { FC, useState } from "react";
 import AppNavbar from "../components/UI/navbar/AppNavbar";
 import PlusButton from "../components/UI/plusBtn/PlusButton";
 import { Link, useNavigate } from "react-router-dom";
+import FoldersList from "../components/FoldersList/FoldersList";
+import { deletePointFromList } from "../localStorage";
 
 const FoldersPage:FC = () => {
 
     let allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');
     let [selectedTags, setSelectedTags] = useState([{label: 'example', id: 'example'}]);
+    let [foldersList, setFoldersList] = useState(JSON.parse(localStorage.getItem('foldersList') || '[]'));
+
+
+    const deleteFolder = (id: number) => {
+        setFoldersList(deletePointFromList(id, 'foldersList'));
+    }
 
     return ( 
         <div>
             <h1 className = "h1-title">Folders Page</h1>
             <AppNavbar></AppNavbar>
+            { foldersList.length < 1 &&
+                <p className = "alert-message">You don't have any folders yet</p>
+            }
+            <FoldersList
+            foldersList = {foldersList}
+            deleteFolder = {(id) => deleteFolder(id)}
+            ></FoldersList>
+            
             <Link to ="/add-folder">
                 <PlusButton></PlusButton>
             </Link>

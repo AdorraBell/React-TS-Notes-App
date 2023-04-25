@@ -3,30 +3,36 @@ import styles from "./InputWithDropdown.module.css";
 import ArrowIcon from "../UI/ArrowIcon";
 import CrossIcon from "../UI/CrossIcon";
 import {useState} from "react";
-import { TagType } from "../../types/types";
+import { NoteTitleType, TagType } from "../../types/types";
 
+
+type selectedPointsType = Array<TagType> | Array<NoteTitleType>;
 
 interface InputWithDropdownProps {
-    allPoints: Array<TagType>,
+    allPoints: selectedPointsType,
     selectedPoints?: Array<TagType>,
-    addedPoint: (data: TagType) => void,
+    addCurrentPoint: (data: TagType) => void,
     title?: string,
     deletePoint: (index: number) => void,
-    deleteAllSelectedPoints: () => void
+    deleteAllSelectedPoints: () => void,
+    canBeCreated?: boolean
 }
 
-const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints, addedPoint, title, deletePoint, deleteAllSelectedPoints}) => {
+const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints, addCurrentPoint, title, deletePoint, deleteAllSelectedPoints, canBeCreated}) => {
 
     let [createTag, setCreateTag] = useState('');
     let [showDropdown, setShowDropdown] = useState(false);
     let [defaultDropdownPointText, setDefaultDropdownPointText] = useState('Create');
     let [pointAlreadySelected, setPointAlreadySelected] = useState(false);
     let [showError, setShowError] = useState(false);
+    let pointCanBeCreated = canBeCreated;
+
+    if(pointCanBeCreated === undefined) pointCanBeCreated = true;
 
     const onKeyDown = (e: React.KeyboardEvent) => {
         if(e.code === 'Enter'){
             e.preventDefault();
-            if(createTag !== ''){
+            if((createTag !== '') && pointCanBeCreated){
                 addPoint(createTag);
             }
         }else if(e.code === 'Backspace'){
@@ -39,11 +45,11 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints
         }
     }
 
-    const addPoint = (createTag: string) => {
-        if(createTag !== ''){ 
-            let tag = {label: createTag, id: createTag};
+    const addPoint = (createTag: string, id?: any) => {
+        if(createTag.length > 0){ 
+            let tag = {label: createTag, id: id !== undefined ? id : createTag};  
             if((dublCheck(tag) !== true) && (pointAlreadySelected !== true)){
-                addedPoint(tag);
+                addCurrentPoint(tag);
                 setCreateTag('');
             }else{
                 setShowError(true);
@@ -52,7 +58,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints
     }
     
     const dublCheck = (data: TagType) => {
-        if(selectedPoints !== undefined){
+        if((selectedPoints !== null) && (selectedPoints !== undefined)){
             for(let i = 0; i < selectedPoints.length; i ++){
                 if (selectedPoints[i].label == data.label) return true;    
             }
@@ -131,19 +137,21 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints
                         <div 
                             className={styles.inputWthDropdown__dropdownPoint} 
                             key = {tag.id} 
-                            onClick = {() => addPoint(tag.label)}>
+                            onClick = {() => addPoint(tag.label, tag.id)}>
                             {tag.label}
                         </div>
                     )}
-                    <div 
-                        className={styles.inputWthDropdown__dropdownPointDefault}
-                        onClick = {() => addPoint(createTag)}
-                        style = {{
-                            background: pointAlreadySelected ? '#d4bebc' : '#cfc6b2'
-                        }}
-                        >
-                        {defaultDropdownPointText} "<span className = {styles.createTag}>{createTag.trim()}</span>"
-                    </div>
+                    {pointCanBeCreated &&
+                        <div 
+                            className={styles.inputWthDropdown__dropdownPointDefault}
+                            onClick = {() => addPoint(createTag)}
+                            style = {{
+                                background: pointAlreadySelected ? '#d4bebc' : '#cfc6b2'
+                            }}
+                            >
+                            {defaultDropdownPointText} "<span className = {styles.createTag}>{createTag.trim()}</span>"
+                        </div>
+                    }
                 </div>    
             }
         </div>

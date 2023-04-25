@@ -1,22 +1,26 @@
-import { NoteType, TagType } from "../types/types";
+import { FolderType, NoteType, TagType } from "../types/types";
 
 let notesList: Array<NoteType> =  JSON.parse(localStorage.getItem('notesList') || '[]');
-let tagsList = JSON.parse(localStorage.getItem('tagsList') || '[]');
+let tagsList: Array<TagType> = JSON.parse(localStorage.getItem('tagsList') || '[]');
+let foldersList = JSON.parse(localStorage.getItem('foldersList') || '[]');
 
-export const addNoteToNotesList = (data: NoteType) : void => {
-    
+type NoteFolderTypes = NoteType | FolderType;
+
+export const addPointToList = (data: NoteFolderTypes, arrType: string) : void => {
     updateVariables();
-    notesList = [...notesList, data];
-    
-    setValInLocalStorage('notesList', notesList);
+    let arr = null;
+    arrType === 'notesList' ? arr = notesList : arr = foldersList;
+
+    arr = [...arr, data];
+
+    setValInLocalStorage(arrType, arr);
     
     if(data.tags !== undefined){
-        addTagsToTagsList(data.tags)
-    }  
+        addTagsToTagsList(data.tags);
+    }
 }
 
 export const takeNoteById = (id: number) => {
-
     updateVariables();
     let selectedNote = notesList.filter(note => {
         if(note.id === id) return note;
@@ -31,12 +35,7 @@ export const changeNote = (changedNote: NoteType) => {
     let newNotesList: Array<NoteType> = [];
     
     notesList.forEach(note => {
-        if(changedNote.id === note.id){
-            console.log(changedNote);
-            newNotesList.push(changedNote);
-        } else {
-            newNotesList.push(note);
-        }
+        changedNote.id === note.id ? newNotesList.push(changedNote) : newNotesList.push(note); 
     })
 
     setValInLocalStorage('notesList', newNotesList);
@@ -55,17 +54,19 @@ export const addTagsToTagsList = (data: Array<TagType>) : void => {
     setValInLocalStorage('tagsList', tagsList);
 }
 
-export const deleteNote = (id: number) : Array<NoteType> => {
-    
+export const deletePointFromList = (id: number, arrType: string) : Array<NoteFolderTypes> => {
     updateVariables();
-    notesList = notesList.filter(note => {
-        if (note.id !== id) return note;
-    }) 
+    let arr = null;
+    arrType === 'notesList' ? arr = notesList : arr = foldersList;
+ 
+    arr = arr.filter((point: NoteFolderTypes) => {
+        if (point.id !== id) return point;
+    })
 
-    setValInLocalStorage('notesList', notesList);
+    setValInLocalStorage(arrType, arr);
     deleteIrrelevantTags();
 
-    return notesList;
+    return arr;
 }
 
 export const deleteIrrelevantTags = () => {
@@ -99,4 +100,5 @@ const setValInLocalStorage = (listname: string, data: object) => {
 const updateVariables = () => {
     notesList = JSON.parse(localStorage.getItem('notesList') || '[]');
     tagsList = JSON.parse(localStorage.getItem('tagsList') || '[]');
+    foldersList = JSON.parse(localStorage.getItem('foldersList') || '[]');
 }

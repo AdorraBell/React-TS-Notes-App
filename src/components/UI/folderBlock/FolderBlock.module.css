@@ -1,0 +1,91 @@
+.folderBlock{
+    border-radius: 5px;
+    padding: 15px;
+    margin: 5px;
+    background-color: #3e3b4c;
+    color: #b4b0c2;
+}
+
+.deleteCircleWrapper{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.deleteCircle{
+    width: 30px;
+    height: 30px;
+    background-color: #868095;
+    border-radius: 15px;
+    position: relative;
+}
+
+.deleteCircle__line{
+    display: inline-block;
+    width: 15px;
+    height: 2px;
+    background-color: #44404e;
+    position: absolute;
+    top: 14px;
+    left: 7.5px;
+}
+
+.deleteCircle__line:first-child{
+    transform: rotate(45deg);
+}
+
+.deleteCircle__line:last-child{
+    transform: rotate(135deg);
+}
+
+.folderBlockLine{
+    width: 100%;
+    display: flex;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+
+.folderBlockTitle{
+    color: #d5d3da;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1em;
+    margin: 0 0 10px;
+}
+
+.tagsBlock{
+    display: flex;
+    margin: 0 15px;
+}
+
+.tagBlock{
+    display: flex;
+    background: #b2acac;
+    padding: 3px 5px;
+    border-radius: 3px;
+    color: #393445;
+    margin: 0 0 3px 4px;
+    font-weight: 500;
+}
+
+.boldText{
+    font-weight: 500;
+}
+
+.btnsLine{
+    display: flex;
+    width: 97%;
+    justify-content: flex-end;
+    min-width: 250px;
+    margin-top: 20px;
+}
+
+.btnsLine button{
+    margin-left: 10px;
+}
+
+@media(max-width: 450px){
+    .btnsLine{
+        justify-content: space-between;
+        min-width: auto;
+    }
+}
