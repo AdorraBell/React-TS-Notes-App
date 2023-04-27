@@ -1,14 +1,17 @@
 import AppForm from "../../components/AppForm/AppForm";
 import { FC, useState } from "react";
-import { changeNote, takeNoteById } from "../../localStorage";
-import { useParams } from "react-router";
+import { changePoint, takePointById } from "../../localStorage";
 import { NoteType, TagType } from "../../types/types";
 import { useNavigate } from "react-router-dom";
 
-const EditNoteBlock:FC = () => {
-    const id = Number(useParams().id);
+interface EditNoteBlockProps{
+    id: number
+}
+
+const EditNoteBlock:FC<EditNoteBlockProps> = ({id}) => {
+
     let allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');
-    const selectedNote: NoteType = takeNoteById(id);
+    const selectedNote = takePointById(id, 'notesList');
     let [selectedTags, setSelectedTags]: any = useState(selectedNote.tags);
     let [noteTitle, setNoteTitle] = useState(selectedNote.title);
     let [noteBody, setNoteBody] = useState(selectedNote.body);
@@ -29,7 +32,7 @@ const EditNoteBlock:FC = () => {
     }
 
     const returnNote = (note: NoteType) => {
-        changeNote(note);
+        changePoint(note, 'notesList');
         return navigate('/');
     }
 

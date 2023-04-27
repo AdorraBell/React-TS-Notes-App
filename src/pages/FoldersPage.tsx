@@ -4,11 +4,12 @@ import PlusButton from "../components/UI/plusBtn/PlusButton";
 import { Link, useNavigate } from "react-router-dom";
 import FoldersList from "../components/FoldersList/FoldersList";
 import { deletePointFromList } from "../localStorage";
+import QuestionButton from "../components/UI/questionBtn/QuestionButton";
 
 const FoldersPage:FC = () => {
 
-    let allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');
-    let [selectedTags, setSelectedTags] = useState([{label: 'example', id: 'example'}]);
+    //let allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');
+    //let [selectedTags, setSelectedTags] = useState([{label: 'example', id: 'example'}]);
     let [foldersList, setFoldersList] = useState(JSON.parse(localStorage.getItem('foldersList') || '[]'));
 
 
@@ -27,7 +28,9 @@ const FoldersPage:FC = () => {
             foldersList = {foldersList}
             deleteFolder = {(id) => deleteFolder(id)}
             ></FoldersList>
-            
+            <Link to = "/info-page">
+                <QuestionButton></QuestionButton>
+            </Link>
             <Link to ="/add-folder">
                 <PlusButton></PlusButton>
             </Link>

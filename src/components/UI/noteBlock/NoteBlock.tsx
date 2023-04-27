@@ -14,21 +14,26 @@ interface NoteType{
     title: string,
     body: string,
     tags?:Array<TagsType>,
-    deletePoint: (e: number) => void
+    deletePoint?: (e: number) => void,
+    canBeDeleted?: boolean
 }
 
-const NoteBlock:FC<NoteType> = ({id, title, body, tags, deletePoint}) => {
+const NoteBlock:FC<NoteType> = ({id, title, body, tags, deletePoint, canBeDeleted}) => {
 
     let formattedBody = textFormatting(body);
+    let showDeleteCircle = canBeDeleted === undefined ? true : false;
 
     return ( 
         <div className = {styles.noteBlock}>
-            <div className = {styles.deleteCircleWrapper}  onClick = {() => deletePoint(id)}>
-                <div className = {styles.deleteCircle}>
-                    <span className = {styles.deleteCircle__line}></span>
-                    <span className = {styles.deleteCircle__line}></span>
+            {showDeleteCircle &&
+                <div className = {styles.deleteCircleWrapper}  onClick = {() => deletePoint && deletePoint(id)}>
+                    <div className = {styles.deleteCircle}>
+                        <span className = {styles.deleteCircle__line}></span>
+                        <span className = {styles.deleteCircle__line}></span>
+                    </div>
                 </div>
-            </div>
+            }
+            
             <Link to={`/${id}/detail`} className = {styles.noteBlock__link}>
                 <h3 className = {styles.noteBlock__title}>{title}</h3>
                 {tags &&

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AppNavbar from "../components/UI/navbar/AppNavbar";
 import NotesList from "../components/NotesList/NotesList";
 import { deletePointFromList } from "../localStorage";
+import QuestionButton from "../components/UI/questionBtn/QuestionButton";
 
 const NotesPage:FC = () => {
 
@@ -24,6 +25,9 @@ const NotesPage:FC = () => {
                 notesList={notesList} 
                 deletePoint = {(id) => deletePoint(id)}
                 ></NotesList>
+            <Link to = "/info-page">
+                <QuestionButton></QuestionButton>
+            </Link>
             <Link to = "/add">
                 <PlusButton></PlusButton>
             </Link>

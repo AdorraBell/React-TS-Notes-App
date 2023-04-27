@@ -19,5 +19,43 @@
   font-weight: 400;
 }
 
+mark{
+  background: #fec34d;
+}
+
+.btns-wrapper{
+  min-width: 200px;
+  width: 20%;
+  margin: auto;
+  padding: 0 20px 20px 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.container{
+  max-width: 1200px;
+  width: 90%;
+  margin: auto;
+  padding: 0 20px 20px 20px;
+}
+
+.formatting-info-page__styling-text-blocks{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.formatting-info-page__styling-text-block{
+  border: 1px solid #d5d3da;
+  padding: 20px;
+  margin-bottom: 5px;
+}
+
+@media(max-width: 650px){
+  .formatting-info-page__styling-text-block{
+    width: 100%;
+    text-align: center;
+  }
+}
 
 

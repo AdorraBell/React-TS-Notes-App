@@ -10,10 +10,11 @@ interface FolderFormProps {
     selectedTagsList?: Array<TagType>,
     selectedNotesList?: Array<TagType>,
     defaultTitle?: string,
+    defaultId?: number,
     saveFolder: (folder: any) => void
 }
 
-const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, defaultTitle, saveFolder}) => {
+const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, defaultTitle, saveFolder, defaultId}) => {
 
     let allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');    
     let [selectedTags, setSelectedTags] = useState(selectedTagsList || [{label: 'example', id: 'example'}]);
@@ -50,7 +51,7 @@ const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, de
     const saveNote = (e: React.FormEvent) => {
         e.preventDefault();
         let folder = {
-            id: Date.now(),
+            id: defaultId || Date.now(),
             title: folderTitle,
             tags: selectedTags,
             notes: selectedNotes
@@ -95,11 +96,6 @@ const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, de
                     variant = {'orangeButton'}>
                     Save
                 </AppButton>  
-                <AppButton 
-                    type = {'button'} 
-                    variant = {'tealOutlineButton'}>
-                    Delete Folder
-                </AppButton>
             </div>
         </form>
      );

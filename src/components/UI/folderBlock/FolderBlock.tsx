@@ -2,6 +2,7 @@ import { FC } from "react";
 import styles from "./FolderBlock.module.css";
 import { TagType } from "../../../types/types";
 import AppButton from "../button/AppButton";
+import { Link } from "react-router-dom";
 
 interface FolderBlockProps{
     folder: any,
@@ -32,33 +33,31 @@ const FolderBlock:FC<FolderBlockProps> = ({folder, deleteFolder}) => {
                 )}       
             </div>
             <div className = {styles.folderBlockLine}>
-                
                 <span className = {styles.boldText}>Included notes:</span>
-                
-                    {notes.map((note: TagType) =>
-                        <div className = {styles.tagBlock} key = {note.id}>
-                            {note.label}
-                        </div>
-                    )}
-                
+                {notes.map((note: TagType) =>
+                    <div className = {styles.tagBlock} key = {note.id}>
+                        {note.label}
+                    </div>
+                )}
             </div>
-            
-                <div className = {styles.btnsLine}>
+            <div className = {styles.btnsLine}>
+                <Link to = {`/${id}/folder-detail`}>
                     <AppButton
                         type = {'button'}
                         variant = {'greyOutlineButton'}
                         >
                         Open
                     </AppButton>
+                </Link>
+                <Link to = {`/${id}/folder-edit`}>
                     <AppButton
                         type = {'button'}
                         variant = {'orangeButton'}
                         >
                         Edit
                     </AppButton>
-                </div>
-                
-            
+                </Link>
+            </div> 
         </div>
     );
 }

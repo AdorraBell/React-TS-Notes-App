@@ -17,6 +17,7 @@
     background-color: #868095;
     border-radius: 15px;
     position: relative;
+    cursor: pointer;
 }
 
 .deleteCircle__line{

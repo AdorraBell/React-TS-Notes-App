@@ -12,8 +12,7 @@ const DetailPage:FC= () => {
     useEffect(() => {
         notesList.filter(note => {
             if(note.id.toString() == id) return setPageData(note);
-        })
-        
+        })   
     }, []);
 
     return ( 

@@ -6,10 +6,11 @@ import {NoteType} from "../../types/types";
 
 interface NotesListProps{
     notesList: Array<NoteType>,
-    deletePoint: (id: number) => void
+    deletePoint?: (id: number) => void,
+    canBeDeleted?: boolean
 }
 
-const NotesList:FC<NotesListProps> = ({notesList, deletePoint}) => {
+const NotesList:FC<NotesListProps> = ({notesList, deletePoint, canBeDeleted}) => {
 
     return (    
 
@@ -20,8 +21,9 @@ const NotesList:FC<NotesListProps> = ({notesList, deletePoint}) => {
                     title = {note.title} 
                     body = {note.body}
                     tags = {note.tags}
-                    deletePoint = {(id) => deletePoint(id)}
-                    key = {note.id}></NoteBlock>
+                    deletePoint = {(id) => deletePoint && deletePoint(id)}
+                    key = {note.id}
+                    canBeDeleted = {canBeDeleted}></NoteBlock>
             )}
             
         </div>
