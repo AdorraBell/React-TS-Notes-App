@@ -5,29 +5,27 @@ import {NoteType} from "../types/types";
 
 
 const DetailPage:FC= () => {
-    const id = useParams().id;
+    const id = Number(useParams().id);
     let [notesList, setNotesList] = useState<NoteType[]>(JSON.parse(localStorage.getItem('notesList') || '[]'));
     let [pageData, setPageData] = useState<NoteType>();
 
     useEffect(() => {
         notesList.filter(note => {
-            if(note.id.toString() == id) return setPageData(note);
+            if(note.id == id) return setPageData(note);
         })   
     }, []);
 
     return ( 
-        <div>
+        <>
             {pageData &&
                 <NoteDetail
-                body = {pageData!.body}
-                title = {pageData!.title}
-                tags = {pageData!.tags}
-                id = {pageData!.id}
-                ></NoteDetail>
+                    body = {pageData!.body}
+                    title = {pageData!.title}
+                    tags = {pageData!.tags}
+                    id = {pageData!.id}
+                    ></NoteDetail>
             }
-        </div>
-       
-       
+        </> 
      );
 }
  

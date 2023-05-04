@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { FolderType, NoteType } from "../../types/types";
-import AppLoader from "../AppLoader/AppLoader";
 import NotesList from "../NotesList/NotesList";
 import styles from "./FilderDetail.module.css";
+import MainTitle from "../UI/mainTitle/MainTitle";
 
 interface FolderDetailProps{
     folder: FolderType;
@@ -14,34 +14,16 @@ const FolderDetail:FC<FolderDetailProps> = ({folder}) => {
     let notesId = folder.notes;
     let fullNotesList = useState(JSON.parse(localStorage.getItem('notesList') || '[]'));
     let currentNotes: Array<NoteType> = [];
-
-
    
     notesId?.forEach(note => {
         for(let i = 0; i < fullNotesList[0].length; i ++){
             if(note.id === fullNotesList[0][i].id) currentNotes.push(fullNotesList[0][i]);
         } 
     });
-    
-        
-   
-    
-
-    const deleteNote = (id: number) => {
-        // let newNotesArr: Array<NoteType> = [];
-        // console.log(newNotesArr);
-        // currentNotes.forEach((note: NoteType) => {
-        //     if(note.id !== id) newNotesArr.push(note);
-        // })
-
-        
-        // setCurrentNotes([]);
-        // console.log(currentNotes);
-    }
 
     return ( 
         <div>
-            <h1 className = "h1-title">{folder.title}</h1>
+            <MainTitle>{folder.title}</MainTitle>
             <div className = {styles.mainBlock}>
                 {tags &&
                     <div className = {styles.tagsWrapper}>
@@ -58,7 +40,6 @@ const FolderDetail:FC<FolderDetailProps> = ({folder}) => {
                 {currentNotes &&
                     <NotesList
                         notesList={currentNotes}
-                        deletePoint={(id) => deleteNote(id)}
                         canBeDeleted = {false}
                         ></NotesList>
                 }      

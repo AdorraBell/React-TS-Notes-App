@@ -1,0 +1,10 @@
+.warningText{
+    margin: 15px 0;
+    font-size: 18px;
+    font-weight: 400;
+    color: #fec34d;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    width: 100%
+}

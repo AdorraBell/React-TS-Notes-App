@@ -1,16 +1,10 @@
-.appForm{
-    max-width: 1200px;
-    width: 90%;
-    margin: auto;
-    padding: 0 20px 20px 20px;
-}
-  
-.formLine{
+  .formLine{
     width: 100%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     margin: 10px 0;
+    position: relative;
 }
 
 .formBtns{

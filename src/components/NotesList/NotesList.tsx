@@ -3,7 +3,6 @@ import styles from "./NotesList.module.css";
 import NoteBlock from "../UI/noteBlock/NoteBlock";
 import {NoteType} from "../../types/types";
 
-
 interface NotesListProps{
     notesList: Array<NoteType>,
     deletePoint?: (id: number) => void,

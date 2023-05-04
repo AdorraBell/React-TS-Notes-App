@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import AppButton from "../components/UI/button/AppButton";
+import MainTitle from "../components/UI/mainTitle/MainTitle";
 
 const FormattingInfoPage = () => {
     return ( 
-        <div>
-            <h1 className = "h1-title">Formatting syntax</h1>
+        <>
+            <MainTitle>Formatting syntax</MainTitle>
             <div className = "container">
                 <p>To create a heading, add up to three # symbols before and after your heading text. The number of # symbols determines the size of the heading.</p>
                 <h2>## H2 heading ##</h2>
@@ -73,7 +74,7 @@ const FormattingInfoPage = () => {
                     </Link>
                 </div>
             </div>
-        </div>
+        </>
      );
 }
  

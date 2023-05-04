@@ -3,22 +3,9 @@ import { Link } from "react-router-dom";
 import styles from "./NoteBlock.module.css";
 import { textFormatting } from "../../../helpers/textFormatting";
 import { createHTML } from "../../../helpers/createHTML";
+import { NoteBlockType } from "../../../types/types";
 
-interface TagsType{
-    label: string,
-    id: string
-}
-
-interface NoteType{
-    id: number,
-    title: string,
-    body: string,
-    tags?:Array<TagsType>,
-    deletePoint?: (e: number) => void,
-    canBeDeleted?: boolean
-}
-
-const NoteBlock:FC<NoteType> = ({id, title, body, tags, deletePoint, canBeDeleted}) => {
+const NoteBlock:FC<NoteBlockType> = ({id, title, body, tags, deletePoint, canBeDeleted}) => {
 
     let formattedBody = textFormatting(body);
     let showDeleteCircle = canBeDeleted === undefined ? true : false;

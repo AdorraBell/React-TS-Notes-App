@@ -12,7 +12,12 @@ export interface NoteType{
     id: number,
     title: string,
     body: string,
-    tags?: Array<TagType>
+    tags?: Array<TagType>,  
+}
+
+export interface NoteBlockType extends NoteType{
+    deletePoint?: (e: number) => void,
+    canBeDeleted?: boolean
 }
 
 export interface FolderType{

@@ -1,42 +1,30 @@
-import { FC, useState } from "react";
-import AppNavbar from "../components/UI/navbar/AppNavbar";
-import PlusButton from "../components/UI/plusBtn/PlusButton";
-import { Link, useNavigate } from "react-router-dom";
+import { FC } from "react";
 import FoldersList from "../components/FoldersList/FoldersList";
-import { deletePointFromList } from "../localStorage";
-import QuestionButton from "../components/UI/questionBtn/QuestionButton";
+import { useBlocksList } from "../hooks/useBlocksList";
+import ListEmptyWarning from "../components/UI/listEmptyWarning/ListEmptyWarning";
+import MainPagesLayout from "../layout/MainPagesLayout/MainPagesLayout";
 
 const FoldersPage:FC = () => {
 
-    //let allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');
-    //let [selectedTags, setSelectedTags] = useState([{label: 'example', id: 'example'}]);
-    let [foldersList, setFoldersList] = useState(JSON.parse(localStorage.getItem('foldersList') || '[]'));
-
-
-    const deleteFolder = (id: number) => {
-        setFoldersList(deletePointFromList(id, 'foldersList'));
-    }
-
+    let foldersList = useBlocksList(JSON.parse(localStorage.getItem('foldersList') || '[]'));
+    
     return ( 
-        <div>
-            <h1 className = "h1-title">Folders Page</h1>
-            <AppNavbar></AppNavbar>
-            { foldersList.length < 1 &&
-                <p className = "alert-message">You don't have any folders yet</p>
+        <MainPagesLayout 
+            title = "Folders Page"
+            addLink = "/add-folder">
+            { foldersList.array.length < 1 &&
+                <ListEmptyWarning
+                    listName = "folders"></ListEmptyWarning>
             }
             <FoldersList
-            foldersList = {foldersList}
-            deleteFolder = {(id) => deleteFolder(id)}
-            ></FoldersList>
-            <Link to = "/info-page">
-                <QuestionButton></QuestionButton>
-            </Link>
-            <Link to ="/add-folder">
-                <PlusButton></PlusButton>
-            </Link>
-            
-        </div>
+                foldersList = {foldersList.array}
+                deleteFolder = {(id) => foldersList.deletePoint(id, 'foldersList')}
+                ></FoldersList>
+        </MainPagesLayout>
      );
 }
  
 export default FoldersPage;
+
+
+ 

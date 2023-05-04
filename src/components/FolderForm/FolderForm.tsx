@@ -5,6 +5,11 @@ import InputWithDropdown from "../InputWithDropdown/InputWithDropdown";
 import { NoteTitleType, NoteType, TagType } from "../../types/types";
 import { Link } from "react-router-dom";
 import AppButton from "../UI/button/AppButton";
+import { deleteAllSelectedPoints } from "../../helpers/deleteAllSelectedPoints";
+import { deletePoint } from "../../helpers/deletePoint";
+import { addNewPoint } from "../../helpers/addNewPoint";
+import useInput from "../../hooks/useInput";
+import WarningText from "../UI/warningText/WarningText";
 
 interface FolderFormProps {
     selectedTagsList?: Array<TagType>,
@@ -18,7 +23,7 @@ const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, de
 
     let allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');    
     let [selectedTags, setSelectedTags] = useState(selectedTagsList || [{label: 'example', id: 'example'}]);
-    let [folderTitle, setFolderTitle] = useState(defaultTitle);
+    let folderTitle = useInput(defaultTitle || '');
     let notesList = JSON.parse(localStorage.getItem('notesList') || '[]');
     let notesTitles:Array<NoteTitleType> = [];
 
@@ -29,60 +34,56 @@ const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, de
     let [selectedNotes, setSelectedNotes] = useState(selectedNotesList ? 
         selectedNotesList
         : [{label: `${notesTitles[0].label}`, id: `${notesTitles[0].id}`}]);
+        
 
-    const titleChanged = (val: string) => {
-        setFolderTitle(val);
-    }
-
-    const addCurrentPoint = (data: TagType, setVar: any, varuable: Array<TagType>) => {
-        setVar([...varuable, data]);
-    }
-
-    const deletePoint = (i: number, setVar: any, varuable: Array<TagType>) => {
-        setVar([...varuable.filter((point, index) =>{
-            if(index !== i) return point;
-        })]);
-    }
-
-    const deleteAllSelectedPoints = (setVar: any) => {
-        setVar([]);
-    }
-
-    const saveNote = (e: React.FormEvent) => {
+    const createFolder = (e: React.FormEvent) => {
         e.preventDefault();
-        let folder = {
-            id: defaultId || Date.now(),
-            title: folderTitle,
-            tags: selectedTags,
-            notes: selectedNotes
+        if(folderTitle.value){
+            let folder = {
+                id: defaultId || Date.now(),
+                title: folderTitle.value,
+                tags: selectedTags,
+                notes: selectedNotes
+            }
+            saveFolder(folder);
+        }else{
+            folderTitle.setError('The field cannot be empty')
         }
-        saveFolder(folder);
     }
 
     return ( 
-        <form className = {styles.folderForm} onSubmit={(e) => saveNote(e)}>
-            <AppInput
-                changeInputVal = {(val) => titleChanged(val)}
-                title = {"Title"}
-                defaultValue = {folderTitle}
-            ></AppInput>
-            <InputWithDropdown
-                allPoints = {allTags}
-                addCurrentPoint = {(data) => addCurrentPoint(data, setSelectedTags, selectedTags)}
-                deletePoint = {(i) => deletePoint(i, setSelectedTags, selectedTags)}
-                deleteAllSelectedPoints = {() => deleteAllSelectedPoints(setSelectedTags)}
-                selectedPoints = {selectedTags}
-                title = {'Tags'}
-                ></InputWithDropdown> 
-            <InputWithDropdown
-                allPoints = {notesTitles}
-                addCurrentPoint = {(data) => addCurrentPoint(data, setSelectedNotes, selectedNotes)}
-                deletePoint = {(i) => deletePoint(i, setSelectedNotes, selectedNotes)}
-                deleteAllSelectedPoints = {() => deleteAllSelectedPoints(setSelectedNotes)}
-                selectedPoints = {selectedNotes}
-                title = {'Notes'}
-                canBeCreated = {false}
-                ></InputWithDropdown> 
+        <form className = {styles.folderForm} onSubmit={(e) => createFolder(e)}>
+            <div className = {styles.formLine}>
+                {folderTitle.error &&
+                    <WarningText>{folderTitle.error}</WarningText>
+                }
+                <AppInput
+                    changeInputVal = {(val) => folderTitle.onChange(val)}
+                    title = {"Title"}
+                    defaultValue = {folderTitle.value}
+                ></AppInput>
+            </div>
+            <div className = {styles.formLine}>
+                <InputWithDropdown
+                    allPoints = {allTags}
+                    addCurrentPoint = {(data) => addNewPoint(data, setSelectedTags, selectedTags)}
+                    deletePoint = {(i) => deletePoint(i, setSelectedTags, selectedTags)}
+                    deleteAllSelectedPoints = {() => deleteAllSelectedPoints(setSelectedTags)}
+                    selectedPoints = {selectedTags}
+                    title = {'Tags'}
+                    ></InputWithDropdown> 
+            </div>
+            <div className = {styles.formLine}>
+                <InputWithDropdown
+                    allPoints = {notesTitles}
+                    addCurrentPoint = {(data) => addNewPoint(data, setSelectedNotes, selectedNotes)}
+                    deletePoint = {(i) => deletePoint(i, setSelectedNotes, selectedNotes)}
+                    deleteAllSelectedPoints = {() => deleteAllSelectedPoints(setSelectedNotes)}
+                    selectedPoints = {selectedNotes}
+                    title = {'Notes'}
+                    canBeCreated = {false}
+                    ></InputWithDropdown> 
+            </div>
             <div className = {styles.formBtns}>    
                 <Link to = "/folders">
                     <AppButton 

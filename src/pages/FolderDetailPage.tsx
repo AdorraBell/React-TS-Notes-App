@@ -7,19 +7,19 @@ import { Link } from "react-router-dom";
 import ErrorBlock from "../components/ErrorBlock/ErrorBlock";
 
 const FolderDetailPage:FC = () => {
-    const id = useParams().id;
-    let [foldersList, setFoldersList] = useState<FolderType[]>(JSON.parse(localStorage.getItem('foldersList') || '[]'));
-    let [pageData, setPageData] = useState<FolderType | undefined>();
+    const id = Number(useParams().id);
+    const foldersList:Array<FolderType> = (JSON.parse(localStorage.getItem('foldersList') || '[]'));
+    const [pageData, setPageData] = useState<FolderType | undefined>();
 
     useEffect(() => {
         foldersList.filter((folder, index) => {
-            if(folder.id.toString() == id) return setPageData(folder); 
+            if(folder.id === id) return setPageData(folder); 
         })
     }, []);
 
 
     return ( 
-        <div>
+        <>
             {pageData ?
                 <div>
                     <FolderDetail
@@ -44,7 +44,7 @@ const FolderDetailPage:FC = () => {
                 :
                 <ErrorBlock></ErrorBlock>
             }
-        </div>
+        </>
     );
 }
  

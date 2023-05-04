@@ -1,37 +1,28 @@
-import { FC, useState } from "react";
-import PlusButton from "../components/UI/plusBtn/PlusButton";
-import { Link } from "react-router-dom";
-import AppNavbar from "../components/UI/navbar/AppNavbar";
+import { FC } from "react";
 import NotesList from "../components/NotesList/NotesList";
-import { deletePointFromList } from "../localStorage";
-import QuestionButton from "../components/UI/questionBtn/QuestionButton";
+import { useBlocksList } from "../hooks/useBlocksList";
+import ListEmptyWarning from "../components/UI/listEmptyWarning/ListEmptyWarning";
+import MainPagesLayout from "../layout/MainPagesLayout/MainPagesLayout";
 
 const NotesPage:FC = () => {
 
-    let [notesList, setNotesList] = useState(JSON.parse(localStorage.getItem('notesList') || '[]'));
-
-    const deletePoint = (id: number) => {
-        setNotesList(deletePointFromList(id, 'notesList'));
-    }
+    let notesList = useBlocksList(JSON.parse(localStorage.getItem('notesList') || '[]'));
 
     return ( 
-        <div>
-            <h1 className = "h1-title">Notes</h1>
-            <AppNavbar></AppNavbar>
-            { notesList.length < 1 &&
-                <p className = "alert-message">You don't have any notes yet</p>
-            }
-            <NotesList 
-                notesList={notesList} 
-                deletePoint = {(id) => deletePoint(id)}
-                ></NotesList>
-            <Link to = "/info-page">
-                <QuestionButton></QuestionButton>
-            </Link>
-            <Link to = "/add">
-                <PlusButton></PlusButton>
-            </Link>
-        </div>
+        <>
+            <MainPagesLayout 
+                title = "Notes Page"
+                addLink = "/add">
+                { notesList.array.length < 1 &&
+                    <ListEmptyWarning
+                        listName = "notes"></ListEmptyWarning>
+                }
+                <NotesList 
+                    notesList={notesList.array} 
+                    deletePoint = {(id) => notesList.deletePoint(id, 'notesList')}
+                    ></NotesList>
+            </MainPagesLayout>
+        </>
      );
 }
  

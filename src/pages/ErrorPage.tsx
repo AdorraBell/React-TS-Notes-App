@@ -1,12 +1,13 @@
 import { FC } from "react";
 import ErrorBlock from "../components/ErrorBlock/ErrorBlock";
+import MainTitle from "../components/UI/mainTitle/MainTitle";
 
 const ErrorPage:FC = () => {
     return ( 
-        <div>
-            <h1>404</h1>
+        <>
+            <MainTitle>404</MainTitle>
             <ErrorBlock></ErrorBlock>
-        </div>
+        </>
      );
 }
  

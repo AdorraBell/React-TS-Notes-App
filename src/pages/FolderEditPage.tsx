@@ -1,16 +1,17 @@
 import { FC } from "react";
 import { useParams } from "react-router";
 import EditFolderBlock from "../components/EditFolderBlock/EditFolderBlock";
+import PagesWthFormLayout from "../layout/PagesWthFormLayout/PagesWthFormLayout";
 
 const FolderEditPage:FC = () => {
     const id = Number(useParams().id);
 
     return ( 
-        <div>
-            <h1 className = "h1-title">Folder Edit</h1>
+        <PagesWthFormLayout
+            title = "Folder Edit">
             <EditFolderBlock
                 id = {id}></EditFolderBlock>
-        </div>
+        </PagesWthFormLayout>
     );
 }
  

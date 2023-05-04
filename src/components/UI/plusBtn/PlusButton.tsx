@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "./PlusButton.module.css";
 
-const PlusButton:FC = ({}) => {
+const PlusButton:FC = () => {
     return ( 
         <div className = {styles.addNote}>+</div>
      );
