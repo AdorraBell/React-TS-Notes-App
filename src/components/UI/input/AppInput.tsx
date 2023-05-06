@@ -11,7 +11,6 @@ interface AppInputProps{
 
 const AppInput:FC<AppInputProps> = ({defaultValue, changeInputVal, title, maxWidth}) => {
     
-
     return ( 
         <div className = {styles.appInputWrapper} style = {{maxWidth: maxWidth}}>
             {title &&

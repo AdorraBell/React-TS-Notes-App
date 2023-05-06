@@ -12,7 +12,6 @@ interface NotesListProps{
 const NotesList:FC<NotesListProps> = ({notesList, deletePoint, canBeDeleted}) => {
 
     return (    
-
         <div className = {styles.notesList}>
             {notesList.map(note =>
                 <NoteBlock 
@@ -23,8 +22,7 @@ const NotesList:FC<NotesListProps> = ({notesList, deletePoint, canBeDeleted}) =>
                     deletePoint = {(id) => deletePoint && deletePoint(id)}
                     key = {note.id}
                     canBeDeleted = {canBeDeleted}></NoteBlock>
-            )}
-            
+            )} 
         </div>
      );
 }

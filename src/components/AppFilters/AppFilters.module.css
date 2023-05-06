@@ -1,0 +1,24 @@
+.filtersWrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 50px auto;
+    max-width: 1000px;
+}
+
+.inputWthDropdown__wrapper{
+    width: 45%;
+}
+
+@media(max-width: 767px){
+    .inputWthDropdown__wrapper{
+        width: 100%;
+    }
+}
+
+@media(max-width: 650px){
+    .inputWthDropdown__Wrapper{
+        width: 90%;
+        margin: 20px auto 10px;
+    }
+}

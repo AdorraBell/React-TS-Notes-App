@@ -1,0 +1,31 @@
+.sortLine{
+    width: 45%;
+    margin: 10px 0;
+    position: relative;
+}
+
+.sortLine__title{
+    text-transform: uppercase;
+    margin: 0 0 15px 0;
+}
+
+.sortLine__select{
+    background: #3e3b4c;
+    border-radius: 5px;
+    color: #d5d3da;
+    font-size: 17px;
+    min-height: 50px;
+    border-radius: 3px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+@media(max-width: 767px){
+    .sortLine{
+        width: 100%;
+    }
+}

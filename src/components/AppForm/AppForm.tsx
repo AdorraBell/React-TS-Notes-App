@@ -26,7 +26,7 @@ const AppForm:FC<AppFormProps> = ({selectedTagsList, returnNote, defaultTitle, d
     const [textareaVal, setTextareaVal] = useState(defaultBody || '');
     const [selectedTags, setSelectedTags] = useState(selectedTagsList || [{label: 'example', id: 'example'}]);
 
-    const saveNote = (e: any) => {
+    const saveNote = (e: React.FormEvent) => {
         e.preventDefault();
         if(titleValue.value){
             let note = {

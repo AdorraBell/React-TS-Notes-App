@@ -9,7 +9,6 @@ type NoteFolderTypes = NoteType | FolderType;
 export const addPointToList = (data: NoteFolderTypes, arrType: string) : void => {
     updateVariables();
     let arr = setArr(arrType);
-
     arr = [...arr, data];
     setValInLocalStorage(arrType, arr);
     
@@ -43,16 +42,14 @@ export const changePoint = (changedPoint: NoteFolderTypes, arrType: string) : vo
 
 export const deletePointFromList = (id: number, arrType: string) : Array<NoteFolderTypes> => {
     updateVariables();
-    let arr = null;
-    arrType === 'notesList' ? arr = notesList : arr = foldersList;
+    let arr = setArr(arrType);
  
     arr = arr.filter((point: NoteFolderTypes) => {
         if (point.id !== id) return point;
     })
 
     setValInLocalStorage(arrType, arr);
-    deleteIrrelevantTags();
-
+    deleteIrrelevantTags(arr);
     return arr;
 }
 
@@ -68,12 +65,12 @@ export const addTagsToTagsList = (data: Array<TagType>) : void => {
     setValInLocalStorage('tagsList', tagsList);
 }
 
-export const deleteIrrelevantTags = () : void => {
+export const deleteIrrelevantTags = (listType: Array<NoteType> | Array<FolderType>) : void => {
 
     let allTags:Array<TagType> = [];
 
-    notesList.forEach((note: any) => {
-        allTags.push(...note.tags);
+    listType.forEach((point: any) => {
+        allTags.push(...point.tags);
     })
 
     let stringTagsArr:Array<string> = [];
@@ -103,5 +100,8 @@ const updateVariables = () : void => {
 }
 
 const setArr = (arrType: string) => {
-    return arrType === 'notesList' ? notesList : foldersList;
+    switch(arrType){
+        case 'notesList': return notesList;
+        case 'foldersList': return foldersList;
+    }
 }

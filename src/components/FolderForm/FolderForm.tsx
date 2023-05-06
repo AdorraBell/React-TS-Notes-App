@@ -2,7 +2,7 @@ import {  FC, useState } from "react";
 import AppInput from "../UI/input/AppInput";
 import styles from "./AppFolder.module.css";
 import InputWithDropdown from "../InputWithDropdown/InputWithDropdown";
-import { NoteTitleType, NoteType, TagType } from "../../types/types";
+import { FolderType, NoteTitleType, NoteType, TagType } from "../../types/types";
 import { Link } from "react-router-dom";
 import AppButton from "../UI/button/AppButton";
 import { deleteAllSelectedPoints } from "../../helpers/deleteAllSelectedPoints";
@@ -16,7 +16,7 @@ interface FolderFormProps {
     selectedNotesList?: Array<TagType>,
     defaultTitle?: string,
     defaultId?: number,
-    saveFolder: (folder: any) => void
+    saveFolder: (folder: FolderType) => void
 }
 
 const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, defaultTitle, saveFolder, defaultId}) => {

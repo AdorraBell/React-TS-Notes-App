@@ -17,7 +17,6 @@ const FolderDetailPage:FC = () => {
         })
     }, []);
 
-
     return ( 
         <>
             {pageData ?

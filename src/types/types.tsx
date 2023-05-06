@@ -1,5 +1,5 @@
 export interface TagType {
-    id: string,
+    id: string | number,
     label: string
 }
 

@@ -45,7 +45,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints
         }
     }
 
-    const addPoint = (createTag: string, id?: any) => {
+    const addPoint = (createTag: string, id?: string | number) => {
         if(createTag.length > 0){ 
             let tag = {label: createTag, id: id !== undefined ? id : createTag};  
             if((dublCheck(tag) !== true) && (pointAlreadySelected !== true)){
