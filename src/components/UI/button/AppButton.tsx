@@ -18,20 +18,13 @@ const AppButton:FC<AppButtonProps> = ({type, children, variant}) => {
 
     const btnSelectClass = (variant: string) => {
         switch(variant){
-            case 'orangeButton': 
-            setBtnClass(styles.orangeButton);
+            case 'orangeButton': setBtnClass(styles.orangeButton);
             break;
-
-            case 'greyOutlineButton': 
-            setBtnClass(styles.greyOutlineButton);
+            case 'greyOutlineButton': setBtnClass(styles.greyOutlineButton);
             break;
-
-            case 'tealOutlineButton': 
-            setBtnClass(styles.tealOutlineButton);
+            case 'tealOutlineButton': setBtnClass(styles.tealOutlineButton);
             break;
-
-            default: 
-            setBtnClass(styles.greyOutlineButton);
+            default: setBtnClass(styles.greyOutlineButton);
         }
     }
 

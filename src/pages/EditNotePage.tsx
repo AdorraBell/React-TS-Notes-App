@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import PagesWthFormLayout from "../layout/PagesWthFormLayout/PagesWthFormLayout";
 
 const EditNotePage:FC = () => {
-
+    
     const id = Number(useParams().id);
     
     return ( 

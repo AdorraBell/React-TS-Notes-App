@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import ErrorBlock from "../components/ErrorBlock/ErrorBlock";
 
 const FolderDetailPage:FC = () => {
+    
     const id = Number(useParams().id);
     const foldersList:Array<FolderType> = (JSON.parse(localStorage.getItem('foldersList') || '[]'));
     const [pageData, setPageData] = useState<FolderType | undefined>();

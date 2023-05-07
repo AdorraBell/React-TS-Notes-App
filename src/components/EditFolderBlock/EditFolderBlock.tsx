@@ -5,7 +5,7 @@ import { FolderType } from "../../types/types";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { RootState } from "../../store/reducers";
-import  useUpdatedList  from "../../hooks/useUpdatedList";
+import  useUpdatedList  from "../../hooks/useMainInfoList";
 
 interface EditFolderBlockProps{
     id: number

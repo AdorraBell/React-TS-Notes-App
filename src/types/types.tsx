@@ -27,3 +27,4 @@ export interface FolderType{
     notes?: Array<TagType>
 }
 
+export type NoteFolderTypes = NoteType | FolderType;

@@ -1,10 +1,8 @@
-import { FolderType, NoteType, TagType } from "../types/types";
+import { FolderType, NoteFolderTypes, NoteType, TagType } from "../types/types";
 
 let notesList: Array<NoteType> =  JSON.parse(localStorage.getItem('notesList') || '[]');
 let tagsList: Array<TagType> = JSON.parse(localStorage.getItem('tagsList') || '[]');
 let foldersList = JSON.parse(localStorage.getItem('foldersList') || '[]');
-
-type NoteFolderTypes = NoteType | FolderType;
 
 export const addPointToList = (data: NoteFolderTypes, arrType: string) : void => {
     updateVariables();

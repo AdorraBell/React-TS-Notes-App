@@ -8,13 +8,16 @@ interface AppInputProps{
     maxWidth?: string,
 }
 
-
 const AppInput:FC<AppInputProps> = ({defaultValue, changeInputVal, title, maxWidth}) => {
     
     return ( 
-        <div className = {styles.appInputWrapper} style = {{maxWidth: maxWidth}}>
+        <div 
+            className = {styles.appInputWrapper} 
+            style = {{maxWidth: maxWidth}}>
             {title &&
-                <h3 className = {styles.appInputTitle}>{title}</h3>
+                <h3 className = {styles.appInputTitle}>
+                    {title}
+                </h3>
             }
             <input 
                 defaultValue = {defaultValue}

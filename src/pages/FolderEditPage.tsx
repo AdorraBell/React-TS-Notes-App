@@ -4,6 +4,7 @@ import EditFolderBlock from "../components/EditFolderBlock/EditFolderBlock";
 import PagesWthFormLayout from "../layout/PagesWthFormLayout/PagesWthFormLayout";
 
 const FolderEditPage:FC = () => {
+    
     const id = Number(useParams().id);
 
     return ( 

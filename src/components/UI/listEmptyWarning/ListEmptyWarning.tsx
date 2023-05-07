@@ -6,7 +6,9 @@ interface ListEmptyWarningProps {
 
 const ListEmptyWarning:FC<ListEmptyWarningProps> = ({listName}) => {
     return ( 
-        <p className = "alert-message">You don't have any {listName} yet</p>
+        <p className = "alert-message">
+            {listName} isn't found
+        </p>
     );
 }
  

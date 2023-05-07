@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./AppNavbar.module.css";
 
 const AppNavbar = () => {
-
+    
     let activeItemClasses = styles.navigationBlock__item + ' ' + styles.navigationBlock__itemActive;
 
     return ( 

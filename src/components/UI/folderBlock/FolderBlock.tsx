@@ -48,16 +48,14 @@ const FolderBlock:FC<FolderBlockProps> = ({folder, deleteFolder}) => {
                 <Link to = {`/${id}/folder-detail`}>
                     <AppButton
                         type = {'button'}
-                        variant = {'greyOutlineButton'}
-                        >
+                        variant = {'greyOutlineButton'}>
                         Open
                     </AppButton>
                 </Link>
                 <Link to = {`/${id}/folder-edit`}>
                     <AppButton
                         type = {'button'}
-                        variant = {'orangeButton'}
-                        >
+                        variant = {'orangeButton'}>
                         Edit
                     </AppButton>
                 </Link>

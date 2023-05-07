@@ -1,0 +1,18 @@
+.formattingInfoPage__stylingTextBlocks{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .formattingInfoPage__stylingTextBlock{
+    border: 1px solid #d5d3da;
+    padding: 20px;
+    margin-bottom: 5px;
+  }
+  
+  @media(max-width: 650px){
+    .formatting-info-page__styling-text-block{
+      width: 100%;
+      text-align: center;
+    }
+  }

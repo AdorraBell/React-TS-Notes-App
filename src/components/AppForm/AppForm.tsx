@@ -83,7 +83,13 @@ const AppForm:FC<AppFormProps> = ({selectedTagsList, returnNote, defaultTitle, d
                     variant = {'orangeButton'}>
                     Save
                 </AppButton>
-                
+                <Link to = "/info-page">
+                    <AppButton 
+                        type = {'button'} 
+                        variant = {'tealOutlineButton'}>
+                        Read about formatting syntax
+                    </AppButton>
+                </Link>
             </div>
         </form>
     );

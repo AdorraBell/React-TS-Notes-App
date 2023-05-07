@@ -1,7 +1,7 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styles from "./NotesList.module.css";
 import NoteBlock from "../UI/noteBlock/NoteBlock";
-import {NoteType} from "../../types/types";
+import { NoteType } from "../../types/types";
 
 interface NotesListProps{
     notesList: Array<NoteType>,

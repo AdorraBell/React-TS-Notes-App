@@ -3,7 +3,9 @@ import styles from "./PlusButton.module.css";
 
 const PlusButton:FC = () => {
     return ( 
-        <div className = {styles.addNote}>+</div>
+        <div className = {styles.addNote}>
+            +
+        </div>
      );
 }
  
