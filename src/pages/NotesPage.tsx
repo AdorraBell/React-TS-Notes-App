@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useCallback } from "react";
 import MainPagesLayout from "../layout/MainPagesLayout/MainPagesLayout";
 import { useSelector } from "react-redux/es/exports";
 import { RootState } from "../store/reducers";
@@ -15,21 +15,25 @@ const NotesPage:FC = () => {
     const searchedTags = useSelector((state: RootState) => state.searchTagsReducer.notesTags);
     const updateData = useMainInfoList(); 
 
+    const deleteNote = (id: number) => {
+        updateData.deletePoint(id, contentListName, tagsListName);
+    };
+
     return ( 
         <MainPagesLayout 
-            title = "Notes Page"
-            addLink = "/add"
-            searchedTags = {searchedTags}
-            dataList = {notesList}
-            contentListName = {contentListName}
-            tagsListName = {tagsListName}
-            sortTypeName = {sortTypeName}
-            sortType = {sortType}
-            listType = "Notes">
+            title="Notes Page"
+            addLink="/add"
+            searchedTags={searchedTags}
+            dataList={notesList}
+            contentListName={contentListName}
+            tagsListName={tagsListName}
+            sortTypeName={sortTypeName}
+            sortType={sortType}
+            listType="Notes">
             <NotesList 
                 notesList={notesList} 
-                deletePoint = {(id) => updateData.deletePoint(id, contentListName, tagsListName)}
-                ></NotesList>  
+                deletePoint={deleteNote}
+                />  
         </MainPagesLayout>
      );
 }

@@ -9,14 +9,15 @@ interface FoldersListProps{
 }
 
 const FoldersList:FC<FoldersListProps> = ({foldersList, deleteFolder}) => {
+
     return ( 
-        <div className = {styles.foldersList}>
+        <div className={styles.foldersList}>
             {foldersList.map(folder => 
                 <FolderBlock
-                    key = {folder.id}
-                    folder = {folder}
-                    deleteFolder = {(id) => deleteFolder(id)}
-                    ></FolderBlock>
+                    key={folder.id}
+                    folder={folder}
+                    deleteFolder={deleteFolder}
+                    />
             )}
         </div>
     );

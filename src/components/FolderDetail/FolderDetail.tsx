@@ -24,13 +24,13 @@ const FolderDetail:FC<FolderDetailProps> = ({folder}) => {
     return ( 
         <div>
             <MainTitle>{folder.title}</MainTitle>
-            <div className = {styles.mainBlock}>
+            <div className={styles.mainBlock}>
                 {tags &&
-                    <div className = {styles.tagsWrapper}>
-                        <span className = {styles.tagsTitle}>Folder tags: </span>
-                        <div className = {styles.tagsBlock}>
+                    <div className={styles.tagsWrapper}>
+                        <span className={styles.tagsTitle}>Folder tags: </span>
+                        <div className={styles.tagsBlock}>
                             {tags.map(tag => 
-                                <div key = {tag.id} className = {styles.tag}>
+                                <div key={tag.id} className={styles.tag}>
                                     #{tag.label}
                                 </div>
                             )}
@@ -40,8 +40,8 @@ const FolderDetail:FC<FolderDetailProps> = ({folder}) => {
                 {currentNotes &&
                     <NotesList
                         notesList={currentNotes}
-                        canBeDeleted = {false}
-                        ></NotesList>
+                        canBeDeleted={false}
+                        />
                 }      
             </div>   
         </div>

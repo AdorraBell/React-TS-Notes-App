@@ -10,7 +10,10 @@ const useInput = (inputValue: string) => {
     }
 
     return {
-        value, onChange, error, setError
+        value, 
+        onChange, 
+        error, 
+        setError
     }
 }
 

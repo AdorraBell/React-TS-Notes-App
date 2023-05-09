@@ -7,7 +7,7 @@ interface WarningTextProps {
 
 const WarningText:FC<WarningTextProps> = ({children}) => {
     return ( 
-        <p className = {styles.warningText}>
+        <p className={styles.warningText}>
             {children}
         </p>
      );

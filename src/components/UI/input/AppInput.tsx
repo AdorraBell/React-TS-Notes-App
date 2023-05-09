@@ -12,17 +12,17 @@ const AppInput:FC<AppInputProps> = ({defaultValue, changeInputVal, title, maxWid
     
     return ( 
         <div 
-            className = {styles.appInputWrapper} 
-            style = {{maxWidth: maxWidth}}>
+            className={styles.appInputWrapper} 
+            style={{maxWidth: maxWidth}}>
             {title &&
-                <h3 className = {styles.appInputTitle}>
+                <h3 className={styles.appInputTitle}>
                     {title}
                 </h3>
             }
             <input 
-                defaultValue = {defaultValue}
-                className = {styles.appInput} 
-                onChange = {(e) => changeInputVal(e.target.value)}>
+                defaultValue={defaultValue}
+                className={styles.appInput} 
+                onChange={(e) => changeInputVal(e.target.value)}>
             </input>
         </div>
      );

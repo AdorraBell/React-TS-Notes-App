@@ -2,6 +2,7 @@
     margin: 10px 0;
     position: relative;
     width: 100%;
+    position: relative;
 }
 
 .inputWthDropdown__main{
@@ -114,6 +115,10 @@
     font-size: 18px;
     font-weight: 400;
     color: #fec34d;
+    position: absolute;
+    top: -10px;
+    text-align: center;
+    width: 100%;
 }
 
 @media(max-width: 500px){

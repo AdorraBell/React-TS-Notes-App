@@ -10,19 +10,23 @@ interface AppTextareaProps{
 
 const AppTextarea:FC<AppTextareaProps> = ({changeTextarea, maxWidth, title, defaultValue}) => {
 
+    const teatareaHasBeenChanged = (e: React.FormEvent<HTMLTextAreaElement>) => {
+        changeTextarea(e.currentTarget.value);
+    }
+
     return ( 
         <div 
-            className = {styles.appTextareaWrapper} 
-            style = {{maxWidth: maxWidth}}>
+            className={styles.appTextareaWrapper} 
+            style={{maxWidth: maxWidth}}>
             {title &&
-                <h3 className = {styles.appTextareaTitle}>
+                <h3 className={styles.appTextareaTitle}>
                     {title}
                 </h3>
             }
             <textarea 
-                defaultValue = {defaultValue}
-                onChange = {(e) => changeTextarea(e.target.value)} 
-                className = {styles.appTextarea}
+                defaultValue={defaultValue}
+                onChange={teatareaHasBeenChanged} 
+                className={styles.appTextarea}
                 ></textarea>
         </div>
     );

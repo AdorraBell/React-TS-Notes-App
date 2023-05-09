@@ -7,7 +7,7 @@ interface MainTitleProps {
 
 const MainTitle:FC<MainTitleProps> = ({children}) => {
     return ( 
-        <h1 className = {styles.h1Title}>
+        <h1 className={styles.h1Title}>
             {children}
         </h1>
     );

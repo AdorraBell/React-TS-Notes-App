@@ -9,9 +9,9 @@ const FolderEditPage:FC = () => {
 
     return ( 
         <PagesWthFormLayout
-            title = "Folder Edit">
+            title="Folder Edit">
             <EditFolderBlock
-                id = {id}></EditFolderBlock>
+                id={id} />
         </PagesWthFormLayout>
     );
 }

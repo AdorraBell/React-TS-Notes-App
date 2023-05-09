@@ -8,13 +8,13 @@ const FormattingInfoPage:FC = () => {
     return ( 
         <>
             <MainTitle>Formatting syntax</MainTitle>
-            <div className = "container">
-                <FormattingInfo></FormattingInfo>
-                <div className = "btns-wrapper">
-                    <Link to = "/">
+            <div className="container">
+                <FormattingInfo />
+                <div className="btns-wrapper">
+                    <Link to="/">
                         <AppButton 
-                            type = {'button'} 
-                            variant = {'orangeButton'}>
+                            type={'button'} 
+                            variant={'orangeButton'}>
                             Back
                         </AppButton>
                     </Link>

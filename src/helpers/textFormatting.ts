@@ -9,19 +9,20 @@ export const textFormatting = (data: string) : string => {
     }
 
     let tag = 'h3';
+
     data = data.replace(/###/gi, createElem);
-    tag = 'h2';
+    tag  = 'h2';
     data = data.replace(/##/gi, createElem);
     data = data.replace(/\r?\n|\r/gi, '<br>');
-    tag = 'strong';
+    tag  = 'strong';
     data = data.replace(/(\*\*|\_\_)/gi, createElem);
-    tag = 'i';
+    tag  = 'i';
     data = data.replace(/(\*|\_)/gi, createElem);
-    tag = 's';
+    tag  = 's';
     data = data.replace(/(\~\~)/gi, createElem);
-    tag = 'mark';
+    tag  = 'mark';
     data = data.replace(/(\=\=)/gi, createElem);
-    tag = 'li';
+    tag  = 'li';
     data = data.replace(/--/gi, createElem);
     data = data.replace(/<li>/, `<ul>$&`);
     data = data.replace(/(?!.*<\/li).*/s, `$&</ul>`);

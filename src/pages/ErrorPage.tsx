@@ -6,7 +6,7 @@ const ErrorPage:FC = () => {
     return ( 
         <>
             <MainTitle>404</MainTitle>
-            <ErrorBlock></ErrorBlock>
+            <ErrorBlock />
         </>
      );
 }

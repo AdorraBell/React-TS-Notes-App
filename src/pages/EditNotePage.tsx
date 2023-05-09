@@ -9,9 +9,9 @@ const EditNotePage:FC = () => {
     
     return ( 
         <PagesWthFormLayout
-            title = "Edit Note">
+            title="Edit Note">
             <EditNoteBlock
-                id = {id}></EditNoteBlock>
+                id={id} />
         </PagesWthFormLayout>
      );
 }

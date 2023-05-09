@@ -10,10 +10,10 @@ const FolderDetailPage:FC = () => {
     
     const id = Number(useParams().id);
     const foldersList:Array<FolderType> = (JSON.parse(localStorage.getItem('foldersList') || '[]'));
-    const [pageData, setPageData] = useState<FolderType | undefined>();
+    const [pageData, setPageData] = useState<FolderType | undefined | null>(null);
 
     useEffect(() => {
-        foldersList.filter((folder, index) => {
+        foldersList.filter(folder => {
             if(folder.id === id) return setPageData(folder); 
         })
     }, []);
@@ -23,26 +23,26 @@ const FolderDetailPage:FC = () => {
             {pageData ?
                 <div>
                     <FolderDetail
-                    folder = {pageData}></FolderDetail>
-                    <div className = "btns-wrapper">
-                        <Link to = "/folders">
+                        folder={pageData} />
+                    <div className="btns-wrapper">
+                        <Link to="/folders">
                             <AppButton 
-                                type = {'button'} 
-                                variant = {'greyOutlineButton'}>
+                                type={'button'} 
+                                variant={'greyOutlineButton'}>
                                 Back
                             </AppButton>
                         </Link>
-                        <Link to = {`/${id}/folder-edit`}>
+                        <Link to={`/${id}/folder-edit`}>
                             <AppButton 
-                                type = {'submit'} 
-                                variant = {'orangeButton'}>
+                                type={'submit'} 
+                                variant={'orangeButton'}>
                                 Edit
                             </AppButton>
                         </Link>
                     </div>
                 </div>
                 :
-                <ErrorBlock></ErrorBlock>
+                <ErrorBlock />
             }
         </>
     );

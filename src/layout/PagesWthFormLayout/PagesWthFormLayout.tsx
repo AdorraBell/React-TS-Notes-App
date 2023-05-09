@@ -9,7 +9,7 @@ interface PagesWthFormLayoutProps {
 
 const PagesWthFormLayout:FC<PagesWthFormLayoutProps> = ({children, title}) => {
     return ( 
-        <div className = {styles.PagesWthForm__Wrapper}>
+        <div className={styles.PagesWthForm__Wrapper}>
             <MainTitle>{title}</MainTitle>
             {children}
         </div>

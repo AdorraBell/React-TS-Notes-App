@@ -3,8 +3,6 @@ import { changePoint, takePointById } from "../../localStorage";
 import FolderForm from "../FolderForm/FolderForm";
 import { FolderType } from "../../types/types";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux/es/exports";
-import { RootState } from "../../store/reducers";
 import  useUpdatedList  from "../../hooks/useMainInfoList";
 
 interface EditFolderBlockProps{
@@ -26,11 +24,11 @@ const EditFolderBlock:FC<EditFolderBlockProps> = ({id}) => {
     return ( 
         <div>
             <FolderForm
-                saveFolder={(val) => saveFolder(val)}
-                defaultId = {id}
-                defaultTitle = {curFolder.title}
-                selectedNotesList = {curFolder.notes}
-                selectedTagsList = {curFolder.tags}></FolderForm>
+                returnFolder={saveFolder}
+                defaultId={id}
+                defaultTitle={curFolder.title}
+                selectedNotesList={curFolder.notes}
+                selectedTagsList={curFolder.tags}></FolderForm>
         </div>
     );
 }

@@ -34,8 +34,8 @@ const AppButton:FC<AppButtonProps> = ({type, children, variant}) => {
 
     return ( 
         <button 
-            type = {type} 
-            className = {btnClasses}>
+            type={type} 
+            className={btnClasses}>
             {children}
         </button>
     );

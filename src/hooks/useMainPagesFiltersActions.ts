@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux/es/exports";
-import useUpdatedList from "./useMainInfoList";
+import useMainInfoList from "./useMainInfoList";
 import { FolderType, NoteType, TagType } from "../types/types";
 import { useEffect } from "react";
 import { sortListByTags } from "../helpers/sortListByTags";
@@ -7,7 +7,7 @@ import { sortListByTags } from "../helpers/sortListByTags";
 export const useMainPagesFiltersActions = (searchedTags: Array<TagType>, currentList: Array<FolderType> | Array<NoteType>, contentListName: string) => {
 
     const dispatch = useDispatch();
-    const updateData = useUpdatedList();
+    const updateData = useMainInfoList();
 
     const setSort = (sort: string, listType: string, sortType: string) => {
         dispatch({type: sort, listType: listType});
@@ -29,8 +29,8 @@ export const useMainPagesFiltersActions = (searchedTags: Array<TagType>, current
     }
 
     useEffect(() => {
-        let arr = sortListByTags(searchedTags, currentList);
-        dispatch({type: 'set-default', listType: contentListName, value: arr});
+        let sortedList = sortListByTags(searchedTags, currentList);
+        dispatch({type: 'set-default', listType: contentListName, value: sortedList});
     }, [searchedTags])
 
     return {

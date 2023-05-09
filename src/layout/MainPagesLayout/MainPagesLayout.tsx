@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import AppNavbar from "../../components/UI/navbar/AppNavbar";
 import MainTitle from "../../components/UI/mainTitle/MainTitle";
 import PlusButton from "../../components/UI/plusBtn/PlusButton";
@@ -19,37 +19,55 @@ interface MainPagesLayoutProps{
     tagsListName: string,
     sortTypeName: string,
     sortType: string,
-    listType: string
+    listType: string,
+    searchByBody?: boolean
 }
 
-const MainPagesLayout:FC<MainPagesLayoutProps> = 
-    ({children, title, addLink, searchedTags, dataList, contentListName, sortTypeName, tagsListName, sortType, listType}) => {
+const MainPagesLayout:FC<MainPagesLayoutProps> = (props) => {
+
+    const {
+        children, 
+        title, 
+        addLink, 
+        searchedTags, 
+        dataList, 
+        contentListName, 
+        sortTypeName, 
+        tagsListName, 
+        sortType, 
+        listType,
+        searchByBody
+    } = props;
     
     const filterActions = useMainPagesFiltersActions(searchedTags, dataList, contentListName);
+    const deleteAllSelectedTags = () => filterActions.deleteAllSelectedTags(tagsListName, contentListName);
+    const deleteTag = (index: number) => filterActions.deleteTag(index, tagsListName, contentListName);
+    const addTag = (data: TagType) => filterActions.addTag(data, tagsListName);
+    const setSort = (sort: string) => filterActions.setSort(sort, contentListName, sortTypeName);
     
     return ( 
         <>
             <MainTitle>{title}</MainTitle>
-            <AppNavbar></AppNavbar>
+            <AppNavbar />
             <AppFilters
-                selectedSort = {(sort) => filterActions.setSort(sort, contentListName, sortTypeName)}
-                defaultSortType = {sortType}
-                searchByBody = {false}
-                addTag = {(data) => filterActions.addTag(data, tagsListName)}
-                deleteTag={(index) => filterActions.deleteTag(index, tagsListName, contentListName)}
-                deleteAllSelectedTags={() => filterActions.deleteAllSelectedTags(tagsListName, contentListName)}
-                selectedTags = {searchedTags}
-                ></AppFilters>  
+                selectedSort={setSort}
+                defaultSortType={sortType}
+                searchByBody={searchByBody}
+                addTag={addTag}
+                deleteTag={deleteTag}
+                deleteAllSelectedTags={deleteAllSelectedTags}
+                selectedTags={searchedTags}
+                />  
             { dataList.length < 1 &&
                 <ListEmptyWarning
-                    listName = {listType}></ListEmptyWarning>
+                    listName={listType} />
             }
             {children}
-            <Link to = "/info-page">
-                <QuestionButton></QuestionButton>
+            <Link to="/info-page">
+                <QuestionButton />
             </Link>
-            <Link to = {addLink}>
-                <PlusButton></PlusButton>
+            <Link to={addLink}>
+                <PlusButton />
             </Link>
         </>
      );

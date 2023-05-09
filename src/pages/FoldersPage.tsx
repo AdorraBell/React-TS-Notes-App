@@ -15,21 +15,24 @@ const FoldersPage:FC = () => {
     const searchedTags = useSelector((state: RootState) => state.searchTagsReducer.foldersTags);
     const updateData = useMainInfoList(); 
 
+    const deleteFolder = (id: number) => updateData.deletePoint(id, contentListName, tagsListName);
+
     return ( 
         <MainPagesLayout 
-            title = "Folders Page"
-            addLink = "/add-folder"
-            searchedTags = {searchedTags}
-            dataList = {foldersList}
-            contentListName = {contentListName}
-            tagsListName = {tagsListName}
-            sortTypeName = {sortTypeName}
-            sortType = {sortType}
-            listType = "Folders">
+            title="Folders Page"
+            addLink="/add-folder"
+            searchedTags={searchedTags}
+            dataList={foldersList}
+            contentListName={contentListName}
+            tagsListName={tagsListName}
+            sortTypeName={sortTypeName}
+            sortType={sortType}
+            listType="Folders"
+            searchByBody={false}>
             <FoldersList
-                foldersList = {foldersList}
-                deleteFolder = {(id) => updateData.deletePoint(id, contentListName, tagsListName)}
-                ></FoldersList>
+                foldersList={foldersList}
+                deleteFolder={deleteFolder}
+                />
         </MainPagesLayout>
      );
 }

@@ -3,7 +3,7 @@ import styles from "./QuestionButton.module.css";
 
 const QuestionButton:FC = () => {
     return ( 
-        <div className = {styles.questionBtn}>
+        <div className={styles.questionBtn}>
             ?
         </div>
      );

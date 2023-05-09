@@ -1,7 +1,8 @@
 import { TagType } from "../types/types";
 
-export const deletePoint = (i: number, arrayWithPoints: Function, deletedPoint: Array<TagType>) => {
-    arrayWithPoints([...deletedPoint.filter((point, index) =>{
-        if(index !== i) return point;
+export const deletePoint = (deletedPointIndex: number, arrayWithPoints: Function, deletedPoint: Array<TagType>) => {
+    console.log('delete')
+    arrayWithPoints([...deletedPoint.filter((point, pointIndex) =>{
+        if(pointIndex !== deletedPointIndex) return point;
     })]);
 }

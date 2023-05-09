@@ -1,4 +1,4 @@
-import {  FC, useState } from "react";
+import {  FC, useCallback, useState } from "react";
 import AppInput from "../UI/input/AppInput";
 import styles from "./AppFolder.module.css";
 import InputWithDropdown from "../InputWithDropdown/InputWithDropdown";
@@ -16,27 +16,24 @@ interface FolderFormProps {
     selectedNotesList?: Array<TagType>,
     defaultTitle?: string,
     defaultId?: number,
-    saveFolder: (folder: FolderType) => void
+    returnFolder: (folder: FolderType) => void
 }
 
-const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, defaultTitle, saveFolder, defaultId}) => {
+const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, defaultTitle, returnFolder, defaultId}) => {
 
-    let allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');    
-    let [selectedTags, setSelectedTags] = useState(selectedTagsList || [{label: 'example', id: 'example'}]);
-    let folderTitle = useInput(defaultTitle || '');
-    let notesList = JSON.parse(localStorage.getItem('notesList') || '[]');
-    let notesTitles:Array<NoteTitleType> = [];
+    const allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');    
+    const folderTitle = useInput(defaultTitle || '');
+    const notesList = JSON.parse(localStorage.getItem('notesList') || '[]');
+    const notesTitles:Array<NoteTitleType> = [];
+    const [sendForm, setSendForm] = useState(false);
+    const [selectedTags, setSelectedTags] = useState(selectedTagsList || [{label: 'example', id: 'example'}]);
+    const [selectedNotes, setSelectedNotes] = useState(selectedNotesList || []);
 
     notesList.forEach((note: NoteType) => {
         notesTitles.push({label: note.title, id: note.id});
     });
-
-    let [selectedNotes, setSelectedNotes] = useState(selectedNotesList ? 
-        selectedNotesList
-        : [{label: `${notesTitles[0].label}`, id: `${notesTitles[0].id}`}]);
         
-
-    const createFolder = (e: React.FormEvent) => {
+    const saveFolder = useCallback((e: React.FormEvent) => {
         e.preventDefault();
         if(folderTitle.value){
             let folder = {
@@ -45,58 +42,68 @@ const FolderForm:FC<FolderFormProps> = ({selectedTagsList, selectedNotesList, de
                 tags: selectedTags,
                 notes: selectedNotes
             }
-            saveFolder(folder);
+            returnFolder(folder);
         }else{
             folderTitle.setError('The field cannot be empty')
         }
-    }
+    }, [sendForm]);
+
+    const addNewTag = (data: TagType) => addNewPoint(data, setSelectedTags, selectedTags);
+    const deleteTag = (index: number) => deletePoint(index, setSelectedTags, selectedTags);
+    const deleteAllSelectedTags = () => deleteAllSelectedPoints(setSelectedTags);
+    const addNewNote = (data: TagType) => addNewPoint(data, setSelectedNotes, selectedNotes);
+    const deleteNote = (index: number) => deletePoint(index, setSelectedNotes, selectedNotes);
+    const deleteAllSelectedNotes = () => deleteAllSelectedPoints(setSelectedNotes);
+    const clickedButtonSendForm = () => setSendForm(!sendForm);
 
     return ( 
-        <form className = {styles.folderForm} onSubmit={(e) => createFolder(e)}>
-            <div className = {styles.formLine}>
+        <form className={styles.folderForm} onSubmit={saveFolder}>
+            <div className={styles.formLine}>
                 {folderTitle.error &&
                     <WarningText>{folderTitle.error}</WarningText>
                 }
                 <AppInput
-                    changeInputVal = {(val) => folderTitle.onChange(val)}
-                    title = {"Title"}
-                    defaultValue = {folderTitle.value}
-                ></AppInput>
+                    changeInputVal={folderTitle.onChange}
+                    title={"Title"}
+                    defaultValue={folderTitle.value}
+                />
             </div>
-            <div className = {styles.formLine}>
+            <div className={styles.formLine}>
                 <InputWithDropdown
-                    allPoints = {allTags}
-                    addCurrentPoint = {(data) => addNewPoint(data, setSelectedTags, selectedTags)}
-                    deletePoint = {(i) => deletePoint(i, setSelectedTags, selectedTags)}
-                    deleteAllSelectedPoints = {() => deleteAllSelectedPoints(setSelectedTags)}
-                    selectedPoints = {selectedTags}
-                    title = {'Tags'}
-                    ></InputWithDropdown> 
+                    allPoints={allTags}
+                    addCurrentPoint={addNewTag}
+                    deletePoint={deleteTag}
+                    deleteAllSelectedPoints={deleteAllSelectedTags}
+                    selectedPoints={selectedTags}
+                    title={'Tags'}
+                    /> 
             </div>
-            <div className = {styles.formLine}>
+            <div className={styles.formLine}>
                 <InputWithDropdown
-                    allPoints = {notesTitles}
-                    addCurrentPoint = {(data) => addNewPoint(data, setSelectedNotes, selectedNotes)}
-                    deletePoint = {(i) => deletePoint(i, setSelectedNotes, selectedNotes)}
-                    deleteAllSelectedPoints = {() => deleteAllSelectedPoints(setSelectedNotes)}
-                    selectedPoints = {selectedNotes}
-                    title = {'Notes'}
-                    canBeCreated = {false}
-                    ></InputWithDropdown> 
+                    allPoints={notesTitles}
+                    addCurrentPoint={addNewNote}
+                    deletePoint={deleteNote}
+                    deleteAllSelectedPoints={deleteAllSelectedNotes}
+                    selectedPoints={selectedNotes}
+                    title={'Notes'}
+                    canBeCreated={false}
+                    /> 
             </div>
-            <div className = {styles.formBtns}>    
-                <Link to = "/folders">
+            <div className={styles.formBtns}>    
+                <Link to="/folders">
                     <AppButton 
-                        type = {'button'} 
-                        variant = {'greyOutlineButton'}>
+                        type={'button'} 
+                        variant={'greyOutlineButton'}>
                         Back
                     </AppButton>
                 </Link>
-                <AppButton 
-                    type = {'submit'} 
-                    variant = {'orangeButton'}>
-                    Save
-                </AppButton>  
+                <div onClick = {clickedButtonSendForm}>
+                    <AppButton 
+                        type={'submit'} 
+                        variant={'orangeButton'}>
+                        Save
+                    </AppButton>  
+                </div>
             </div>
         </form>
      );

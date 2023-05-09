@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import styles from "./InputWithDropdown.module.css";
 import ArrowIcon from "../UI/ArrowIcon";
 import CrossIcon from "../UI/CrossIcon";
-import {useState} from "react";
+import { useState } from "react";
 import { NoteTitleType, TagType } from "../../types/types";
 
 
@@ -18,16 +18,26 @@ interface InputWithDropdownProps {
     canBeCreated?: boolean
 }
 
-const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints, addCurrentPoint, title, deletePoint, deleteAllSelectedPoints, canBeCreated}) => {
+const InputWithDropdown:FC<InputWithDropdownProps> = (props) => {
 
-    let [createTag, setCreateTag] = useState('');
-    let [showDropdown, setShowDropdown] = useState(false);
-    let [defaultDropdownPointText, setDefaultDropdownPointText] = useState('Create');
-    let [pointAlreadySelected, setPointAlreadySelected] = useState(false);
-    let [showError, setShowError] = useState(false);
-    let pointCanBeCreated = canBeCreated;
+    const {
+        allPoints, 
+        selectedPoints, 
+        addCurrentPoint, 
+        title, 
+        deletePoint, 
+        deleteAllSelectedPoints, 
+        canBeCreated
+    } = props;
 
-    if(pointCanBeCreated === undefined) pointCanBeCreated = true;
+    const [createTag, setCreateTag] = useState('');
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [defaultDropdownPointText, setDefaultDropdownPointText] = useState('Create');
+    const [pointAlreadySelected, setPointAlreadySelected] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [pointCanBeCreated, setPointCanBeCreated] = useState(canBeCreated);
+
+    if(pointCanBeCreated === undefined) setPointCanBeCreated(true);
 
     const onKeyDown = (e: React.KeyboardEvent) => {
         if(e.code === 'Enter'){
@@ -46,6 +56,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints
     }
 
     const addPoint = (createTag: string, id?: string | number) => {
+        
         if(createTag.length > 0){ 
             let tag = {label: createTag, id: id !== undefined ? id : createTag};  
             if((dublCheck(tag) !== true) && (pointAlreadySelected !== true)){
@@ -55,7 +66,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints
                 setShowError(true);
             }  
         }
-    }
+    };
     
     const dublCheck = (data: TagType) => {
         if((selectedPoints !== null) && (selectedPoints !== undefined)){
@@ -82,74 +93,91 @@ const InputWithDropdown:FC<InputWithDropdownProps> = ({allPoints, selectedPoints
         dublCheck(tag) ? setError('Already selected', true) : setError('Create', false);
     }, [createTag])
 
+    const deleteClickedPoint = (e: React.MouseEvent<HTMLElement>) => {
+        deletePoint(Number(e.currentTarget.dataset.index));
+    }
+    const createSelectedTag = (e: React.FormEvent<HTMLInputElement>) => setCreateTag(e.currentTarget.value);
+    const addSelectedPoint = () => addPoint(createTag);
+    const changeDropdownVisibility = () => setShowDropdown(!showDropdown);
+    const addEnteredLine = (e: React.MouseEvent<HTMLElement>) => {
+        const label = e.currentTarget.innerHTML;
+        const id = e.currentTarget.dataset.id;
+        addPoint(label, id)
+    };
 
     return ( 
         <div className={styles.inputWthDropdown}>
             {title &&
-                <h3 className = {styles.appInputTitle}>{title}</h3>
+                <h3 className={styles.appInputTitle}>
+                    {title}
+                </h3>
             }
             {showError &&
-                <div className = {styles.inputWthDropdown__error}>Tag already added</div>
+                <div className={styles.inputWthDropdown__error}>
+                    Tag already added
+                </div>
             }
-            
             <div className={styles.inputWthDropdown__main}>
                 <div className={styles.inputWthDropdown__tags}>
                     {selectedPoints &&
                         selectedPoints.map((tag, index) =>
-                            <div className={styles.inputWthDropdown__tag} key = {tag.id}>
+                            <div 
+                                className={styles.inputWthDropdown__tag} 
+                                key={tag.id}>
                                 <span className={styles.inputWthDropdown__tagText}>
                                     {tag.label}
                                 </span>
                                 <div 
                                     className={styles.inputWthDropdown__tagCross} 
-                                    onClick = {() => deletePoint(index)}>
-                                        <CrossIcon color = {'#8f8e94'}></CrossIcon>
+                                    data-index={index}
+                                    onClick={deleteClickedPoint}>
+                                        <CrossIcon color={'#8f8e94'} />
                                 </div>    
                             </div>
                         )
                     }
                 </div>
-                
-                <input type = "text"  className={styles.inputWthDropdown__input} 
-                    value = {createTag}
-                    onChange = {(e) => setCreateTag(e.target.value)} 
-                    onKeyDown={(e) => onKeyDown(e)}
+                <input 
+                    type="text"  
+                    className={styles.inputWthDropdown__input} 
+                    value={createTag}
+                    onChange={createSelectedTag} 
+                    onKeyDown={onKeyDown}
                     />
-            
                 <div className={styles.inputWthDropdown__iconsWrapper}>
                     <div 
                         className={styles.inputWthDropdown__crossIcon}
-                        onClick = {deleteAllSelectedPoints}>
-                        <CrossIcon color = {'#8f8e94'}></CrossIcon>
+                        onClick={deleteAllSelectedPoints}>
+                        <CrossIcon color={'#8f8e94'} />
                     </div>
                     <div className={styles.inputWthDropdown__line}></div>
                     <div 
-                        onClick = {() => setShowDropdown(!showDropdown)}
+                        onClick={changeDropdownVisibility}
                         className={styles.inputWthDropdown__arrowIcon} >
-                        <ArrowIcon color = {'#8f8e94'}></ArrowIcon>
+                        <ArrowIcon color={'#8f8e94'} />
                     </div>
                 </div>
             </div>
-
             {((createTag !== '' ) || (showDropdown)) &&
                 <div className={styles.inputWthDropdown__dropdown}>
                     {allPoints.map(tag =>
                         <div 
                             className={styles.inputWthDropdown__dropdownPoint} 
-                            key = {tag.id} 
-                            onClick = {() => addPoint(tag.label, tag.id)}>
+                            key={tag.id} 
+                            data-id={tag.id}
+                            onClick={addEnteredLine}>
                             {tag.label}
                         </div>
                     )}
                     {pointCanBeCreated &&
                         <div 
                             className={styles.inputWthDropdown__dropdownPointDefault}
-                            onClick = {() => addPoint(createTag)}
-                            style = {{
+                            onClick={addSelectedPoint}
+                            style={{
                                 background: pointAlreadySelected ? '#d4bebc' : '#cfc6b2'
                             }}
                             >
-                            {defaultDropdownPointText} "<span className = {styles.createTag}>{createTag.trim()}</span>"
+                            {defaultDropdownPointText} "<span className={styles.createTag}>{createTag.trim()}</span>"
                         </div>
                     }
                 </div>    

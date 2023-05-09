@@ -3,7 +3,7 @@ import AppInput from "../UI/input/AppInput";
 import AppTextarea from "../UI/textarea/AppTextarea";
 import styles from "./AppForm.module.css";
 import { Link } from "react-router-dom";
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import InputWithDropdown from "../InputWithDropdown/InputWithDropdown";
 import {TagType, NoteType} from "../../types/types";
 import { deleteAllSelectedPoints } from "../../helpers/deleteAllSelectedPoints";
@@ -20,13 +20,23 @@ interface AppFormProps{
     defaultId?: number
 }
 
-const AppForm:FC<AppFormProps> = ({selectedTagsList, returnNote, defaultTitle, defaultBody, defaultId}) => {
+const AppForm:FC<AppFormProps> = (props) => {
+
+    const {
+        selectedTagsList, 
+        returnNote, 
+        defaultTitle, 
+        defaultBody, 
+        defaultId
+    } = props;
+    
     const allTags = JSON.parse(localStorage.getItem('tagsList') || '[]');  
     const titleValue = useInput(defaultTitle || '');
     const [textareaVal, setTextareaVal] = useState(defaultBody || '');
     const [selectedTags, setSelectedTags] = useState(selectedTagsList || [{label: 'example', id: 'example'}]);
+    const [sendForm, setSendForm] = useState(false);
 
-    const saveNote = (e: React.FormEvent) => {
+    const saveNote = useCallback((e: React.FormEvent) => {
         e.preventDefault();
         if(titleValue.value){
             let note = {
@@ -38,55 +48,61 @@ const AppForm:FC<AppFormProps> = ({selectedTagsList, returnNote, defaultTitle, d
         }else{
             titleValue.setError('The field cannot be empty')
         }
-    }
+    }, [sendForm]);
 
-    const changeTextarea = (val: string) => {
-        setTextareaVal(val);
-    } 
+    const changeTextarea = (val: string) => setTextareaVal(val);
+    const addNewPointToInput = (data: TagType) => addNewPoint(data, setSelectedTags, selectedTags);
+    const deletePointFromInput = (index: number) => deletePoint(index, setSelectedTags, selectedTags);
+    const deleteAllPointsFromInput = () => deleteAllSelectedPoints(setSelectedTags);
+    const clickedButtonSendForm = () => setSendForm(!sendForm);
 
     return ( 
-        <form onSubmit = {(e) => saveNote(e)} className = {styles.appForm}>
-            <div className = {styles.formLine}>
+        <form 
+            onSubmit={saveNote} 
+            className={styles.appForm}>
+            <div className={styles.formLine}>
                 {titleValue.error &&
                     <WarningText>{titleValue.error}</WarningText>
                 }
                 <AppInput 
-                    defaultValue = {titleValue.value} 
-                    changeInputVal = {(value) => titleValue.onChange(value)} 
-                    title = {'Title'}/>
+                    defaultValue={titleValue.value} 
+                    changeInputVal={titleValue.onChange} 
+                    title='Title'/>
             </div>
-            <div className = {styles.formLine}>
+            <div className={styles.formLine}>
                 <InputWithDropdown 
-                    allPoints = {allTags} 
-                    addCurrentPoint = {(data) => addNewPoint(data, setSelectedTags, selectedTags)}
-                    deletePoint = {(index) => deletePoint(index, setSelectedTags, selectedTags)}
-                    title = {'Tags'}
-                    selectedPoints = {selectedTags}
-                    deleteAllSelectedPoints = {() => deleteAllSelectedPoints(setSelectedTags)}/>
+                    allPoints={allTags} 
+                    addCurrentPoint={addNewPointToInput}
+                    deletePoint={deletePointFromInput}
+                    title='Tags'
+                    selectedPoints={selectedTags}
+                    deleteAllSelectedPoints={deleteAllPointsFromInput}/>
             </div>
-            <div className = {styles.formLine}>
+            <div className={styles.formLine}>
                 <AppTextarea 
-                    defaultValue = {defaultBody}
-                    changeTextarea = {(val) => changeTextarea(val)}  
-                    title = {'Note Body'}/>
+                    defaultValue={defaultBody}
+                    changeTextarea={changeTextarea}  
+                    title='Note Body'/>
             </div>
-            <div className = {styles.formBtns}>
-                <Link to = "..">
+            <div className={styles.formBtns}>
+                <Link to="..">
                     <AppButton 
-                        type = {'button'} 
-                        variant = {'greyOutlineButton'}>
+                        type='button' 
+                        variant='greyOutlineButton'>
                         Back
                     </AppButton>
                 </Link>
-                <AppButton 
-                    type = {'submit'} 
-                    variant = {'orangeButton'}>
-                    Save
-                </AppButton>
-                <Link to = "/info-page">
+                <div onClick = {clickedButtonSendForm}>
                     <AppButton 
-                        type = {'button'} 
-                        variant = {'tealOutlineButton'}>
+                        type='submit' 
+                        variant='orangeButton'>
+                        Save
+                    </AppButton>
+                </div>
+                <Link to="/info-page">
+                    <AppButton 
+                        type='button' 
+                        variant='tealOutlineButton'>
                         Read about formatting syntax
                     </AppButton>
                 </Link>
