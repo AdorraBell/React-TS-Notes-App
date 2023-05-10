@@ -11,9 +11,12 @@ import FolderDetail from '../pages/FolderDetailPage';
 import FolderEdit from '../pages/FolderEditPage';
 import FormattingInfoPage from "../pages/FormattingInfoPage";
 
+const getBaseName = () => process.env.PUBLIC_URL || '/';
+
 const AppRouter:FC = () => {
+
     return ( 
-        <BrowserRouter>
+        <BrowserRouter basename={getBaseName()}>
             <Routes>
                 <Route path = "/" element = {<NotesPage></NotesPage>}></Route>
                 <Route path = "/add" element = {<AddNotePage></AddNotePage>}></Route>
