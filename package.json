@@ -1,4 +1,5 @@
 {
+  "homepage": "http://adorrabell.github.io/React-TS-Notes-App",
   "name": "react-ts-notes-app",
   "version": "0.1.0",
   "private": true,
@@ -22,6 +23,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -31,10 +34,12 @@
       "react-app",
       "react-app/jest"
     ],
-    "plugins": ["react-hooks"],
+    "plugins": [
+      "react-hooks"
+    ],
     "rules": {
       "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn" 
+      "react-hooks/exhaustive-deps": "warn"
     }
   },
   "browserslist": {
@@ -51,6 +56,7 @@
   },
   "devDependencies": {
     "eslint": "^8.40.0",
-    "eslint-plugin-react": "^7.32.2"
+    "eslint-plugin-react": "^7.32.2",
+    "gh-pages": "^5.0.0"
   }
 }
