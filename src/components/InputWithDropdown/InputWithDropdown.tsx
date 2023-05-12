@@ -89,7 +89,7 @@ const InputWithDropdown:FC<InputWithDropdownProps> = (props) => {
     }, [showError])
 
     useEffect(() => {
-        let tag = {label: createTag.trim(), id: createTag.trim()};
+        const tag = {label: createTag.trim(), id: createTag.trim()};
         dublCheck(tag) ? setError('Already selected', true) : setError('Create', false);
     }, [createTag])
 

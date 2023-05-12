@@ -7,8 +7,8 @@ import { NoteBlockType } from "../../../types/types";
 
 const NoteBlock:FC<NoteBlockType> = ({id, title, body, tags, deletePoint, canBeDeleted}) => {
 
-    let formattedBody = textFormatting(body);
-    let showDeleteCircle = canBeDeleted === undefined ? true : false;
+    const formattedBody = textFormatting(body);
+    const showDeleteCircle = canBeDeleted === undefined ? true : false;
 
     return ( 
         <div className={styles.noteBlock}>

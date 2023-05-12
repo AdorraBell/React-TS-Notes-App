@@ -10,7 +10,7 @@ import { createHTML } from "../../helpers/createHTML";
 
 const NoteDetail:FC<NoteType> = ({body, title, tags, id}) => {
 
-    let formattedBody = textFormatting(body);
+    const formattedBody = textFormatting(body);
 
     return ( 
         <div className={styles.noteDetail}>

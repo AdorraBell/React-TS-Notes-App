@@ -11,9 +11,9 @@ interface FolderBlockProps{
 
 const FolderBlock:FC<FolderBlockProps> = ({folder, deleteFolder}) => {
     
-    let tags = folder.tags;
-    let notes = folder.notes;
-    let id = folder.id;
+    const tags = folder.tags;
+    const notes = folder.notes;
+    const id = folder.id;
 
     return ( 
         <div className={styles.folderBlock}>

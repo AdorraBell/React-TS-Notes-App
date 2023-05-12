@@ -3,14 +3,21 @@ const defaulState = {
     foldersSortType: ''
 }
 
-export const sortTypeReducer = (state: typeof defaulState = defaulState, action: any) => {
+interface ActionType {
+    type: string,
+    listType: string,
+    value: string
+}
 
-    let listType;
-    action.listType === 'notesSortType' ? listType = state.notesSortType : listType = state.foldersSortType;
+export const sortTypeReducer = (state: typeof defaulState = defaulState, action: ActionType) => {
+
+    const listType = action.listType === 'notesSortType' ?  state.notesSortType : state.foldersSortType;
 
     switch(action.type){
-        case 'setSort': return {...state, [action.listType]: action.value};
-        default: return state;
+        case 'setSort': 
+            return {...state, [action.listType]: action.value};
+        default: 
+            return state;
     }
 
 }

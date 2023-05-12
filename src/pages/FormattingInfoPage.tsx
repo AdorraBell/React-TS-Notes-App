@@ -5,6 +5,7 @@ import { FC } from "react";
 import FormattingInfo from "../components/FormattingInfo/FormattingInfo";
 
 const FormattingInfoPage:FC = () => {
+    
     return ( 
         <>
             <MainTitle>Formatting syntax</MainTitle>

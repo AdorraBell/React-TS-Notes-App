@@ -13,7 +13,7 @@ interface AppButtonProps {
 
 const AppButton:FC<AppButtonProps> = ({type, children, variant}) => {
 
-    let [btnClass, setBtnClass] = useState('');
+    const [btnClass, setBtnClass] = useState('');
     const btnClasses =  styles.btnDefault + ' ' + btnClass;
 
     const btnSelectClass = (variant: string) => {

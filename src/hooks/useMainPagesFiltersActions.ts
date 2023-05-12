@@ -4,6 +4,7 @@ import { FolderType, NoteType, TagType } from "../types/types";
 import { useEffect } from "react";
 import { sortListByTags } from "../helpers/sortListByTags";
 
+
 export const useMainPagesFiltersActions = (searchedTags: Array<TagType>, currentList: Array<FolderType> | Array<NoteType>, contentListName: string) => {
 
     const dispatch = useDispatch();
