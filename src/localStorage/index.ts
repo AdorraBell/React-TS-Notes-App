@@ -4,34 +4,34 @@ let notesList: Array<NoteType> =  JSON.parse(localStorage.getItem('notesList') |
 let tagsList: Array<TagType> = JSON.parse(localStorage.getItem('tagsList') || '[]');
 let foldersList = JSON.parse(localStorage.getItem('foldersList') || '[]');
 
-export const addPointToList = (data: NoteFolderTypes, arrType: string) : void => {
+export const addPointToList = (newPoint: NoteFolderTypes, arrType: string) : void => {
     updateVariables();
-    let arr = setArr(arrType);
-    arr = [...arr, data];
-    setValInLocalStorage(arrType, arr);
+    let pointsList = setArr(arrType);
+    pointsList = [...pointsList, newPoint];
+    setValInLocalStorage(arrType, pointsList);
     
-    if(data.tags !== undefined){
-        addTagsToTagsList(data.tags);
+    if(newPoint.tags !== undefined){
+        addTagsToTagsList(newPoint.tags);
     }
 }
 
 export const takePointById = (id: number, arrType: string) => {
     updateVariables();
-    let arr = setArr(arrType);
+    const pointsList = setArr(arrType);
 
-    let selectedPoint = arr.filter((point: NoteType | FolderType) => {
-        if(point.id === id) return point;
-    })
+    const selectedPoint = pointsList.find((point: NoteType | FolderType) => 
+        point.id === id
+    )
 
-    return selectedPoint[0];
+    return selectedPoint;
 }
 
 export const changePoint = (changedPoint: NoteFolderTypes, arrType: string) : void => {
     updateVariables();
-    let arr = setArr(arrType);
-    let newList: Array<NoteFolderTypes> = [];
+    const pointsList = setArr(arrType);
+    const newList: Array<NoteFolderTypes> = [];
 
-    arr.forEach((point: NoteFolderTypes) => {
+    pointsList.forEach((point: NoteFolderTypes) => {
         changedPoint.id === point.id ? newList.push(changedPoint) : newList.push(point);
     })
 
@@ -40,24 +40,23 @@ export const changePoint = (changedPoint: NoteFolderTypes, arrType: string) : vo
 
 export const deletePointFromList = (id: number, arrType: string) : Array<NoteFolderTypes> => {
     updateVariables();
-    let arr = setArr(arrType);
+    let pointsList = setArr(arrType);
  
-    arr = arr.filter((point: NoteFolderTypes) => {
-        if (point.id !== id) return point;
-    })
+    pointsList = pointsList.filter((point: NoteFolderTypes) => 
+        point.id !== id
+    )
 
-    setValInLocalStorage(arrType, arr);
-    deleteIrrelevantTags(arr);
-    return arr;
+    setValInLocalStorage(arrType, pointsList);
+    deleteIrrelevantTags(pointsList);
+    return pointsList;
 }
 
-export const addTagsToTagsList = (data: Array<TagType>) : void => {
-    tagsList = [...tagsList, ...data.filter(tag => {
-        let calc = 0;
-        for(let i = 0; i < tagsList.length; i ++){
-            if(tag.label === tagsList[i].label) calc ++;
-        }   
-        if(calc === 0) return tag;
+export const addTagsToTagsList = (newTags: Array<TagType>) : void => {
+    tagsList = [...tagsList, ...newTags.filter(tag => {
+        const hasMatches = tagsList.some(element => 
+            element.label === tag.label    
+        )
+        if(hasMatches === false) return tag;
     })];
 
     setValInLocalStorage('tagsList', tagsList);
@@ -65,19 +64,19 @@ export const addTagsToTagsList = (data: Array<TagType>) : void => {
 
 export const deleteIrrelevantTags = (listType: Array<NoteType> | Array<FolderType>) : void => {
 
-    let allTags:Array<TagType> = [];
+    const allTags:Array<TagType> = [];
 
-    listType.forEach((point: any) => {
-        allTags.push(...point.tags);
+    listType.forEach((point: NoteFolderTypes) => {
+        if(point.tags) allTags.push(...point.tags);
     })
 
-    let stringTagsArr:Array<string> = [];
+    const stringTagsArr:Array<string> = [];
 
     allTags.forEach((tag: TagType) => {
         stringTagsArr.push(tag.label);
     })
 
-    let unicTags = new Set(stringTagsArr);
+    const unicTags = new Set(stringTagsArr);
     tagsList = [];
 
     unicTags.forEach((tag: string) => {

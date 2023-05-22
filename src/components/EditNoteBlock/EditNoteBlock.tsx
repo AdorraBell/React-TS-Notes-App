@@ -22,15 +22,12 @@ const EditNoteBlock:FC<EditNoteBlockProps> = ({id}) => {
     }
 
     return ( 
-        <div>
-            <AppForm
-                selectedTagsList={selectedNote.tags}
-                returnNote={returnNote}
-                defaultTitle={selectedNote.title}
-                defaultBody={selectedNote.body}
-                defaultId={id}
-            />
-        </div>
+        <AppForm
+            selectedTagsList={selectedNote.tags}
+            returnNote={returnNote}
+            defaultTitle={selectedNote.title}
+            defaultBody={selectedNote.body}
+            defaultId={id} />
      );
 }
  

@@ -1,11 +1,11 @@
 
 export const textFormatting = (data: string) : string => {
     
-    let calc = 0;
+    let calcTags = 0;
 
     const createElem = (data: string) : string => {
-        calc ++;
-        return (calc %2 == 0) ? `</${tag}>` : `<${tag}>`;
+        calcTags ++;
+        return (calcTags %2 == 0) ? `</${tag}>` : `<${tag}>`;
     }
 
     let tag = 'h3';

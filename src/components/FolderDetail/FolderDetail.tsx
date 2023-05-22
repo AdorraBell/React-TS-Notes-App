@@ -10,10 +10,10 @@ interface FolderDetailProps{
 
 const FolderDetail:FC<FolderDetailProps> = ({folder}) => {
 
-    let tags = folder.tags;
-    let notesId = folder.notes;
-    let fullNotesList = useState(JSON.parse(localStorage.getItem('notesList') || '[]'));
-    let currentNotes: Array<NoteType> = [];
+    const tags = folder.tags;
+    const notesId = folder.notes;
+    const fullNotesList = useState(JSON.parse(localStorage.getItem('notesList') || '[]'));
+    const currentNotes: Array<NoteType> = [];
    
     notesId?.forEach(note => {
         for(let i = 0; i < fullNotesList[0].length; i ++){

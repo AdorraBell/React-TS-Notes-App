@@ -10,12 +10,14 @@ const NoteBlock:FC<NoteBlockType> = ({id, title, body, tags, deletePoint, canBeD
     const formattedBody = textFormatting(body);
     const showDeleteCircle = canBeDeleted === undefined ? true : false;
 
+    const deleteButtonClicked = () =>  deletePoint && deletePoint(id);
+    
     return ( 
         <div className={styles.noteBlock}>
             {showDeleteCircle &&
                 <div 
                     className={styles.deleteCircleWrapper}  
-                    onClick={() => deletePoint && deletePoint(id)}>
+                    onClick={deleteButtonClicked}>
                     <div className={styles.deleteCircle}>
                         <span className={styles.deleteCircle__line}></span>
                         <span className={styles.deleteCircle__line}></span>

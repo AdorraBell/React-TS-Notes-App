@@ -22,14 +22,12 @@ const EditFolderBlock:FC<EditFolderBlockProps> = ({id}) => {
     }
 
     return ( 
-        <div>
-            <FolderForm
-                returnFolder={saveFolder}
-                defaultId={id}
-                defaultTitle={curFolder.title}
-                selectedNotesList={curFolder.notes}
-                selectedTagsList={curFolder.tags}></FolderForm>
-        </div>
+        <FolderForm
+            returnFolder={saveFolder}
+            defaultId={id}
+            defaultTitle={curFolder.title}
+            selectedNotesList={curFolder.notes}
+            selectedTagsList={curFolder.tags} />
     );
 }
  
